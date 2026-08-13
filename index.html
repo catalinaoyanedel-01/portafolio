@@ -21,7 +21,6 @@
     
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* Esto hace que al hacer clic en el menú, la página se deslice suavemente */
     html {
       scroll-behavior: smooth;
     }
@@ -32,18 +31,16 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 2rem 1rem;
+      padding: 4rem 1rem 2rem 1rem; /* Aumenté un poco el espacio arriba */
       max-width: 800px;
       margin: 0 auto;
     }
     
-    header { text-align: center; margin-bottom: 3rem; }
-    h1 { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
-    .subtitle { color: var(--text-muted); font-size: 1.2rem; }
+    header { text-align: center; margin-bottom: 4rem; }
+    h1 { font-size: 3rem; color: var(--accent); margin-bottom: 1.5rem; }
     
-    /* --- INICIO DEL NUEVO MENÚ --- */
+    /* --- MENÚ --- */
     .menu-categorias {
-      margin-top: 2rem;
       display: flex;
       justify-content: center;
       gap: 2rem;
@@ -57,7 +54,6 @@
       font-weight: bold;
       padding-bottom: 0.3rem;
       border-bottom: 2px solid transparent;
-      /* Aquí está la animación de transición suave */
       transition: color 0.3s ease, border-bottom 0.3s ease;
     }
     
@@ -65,9 +61,27 @@
       color: var(--accent);
       border-bottom: 2px solid var(--accent);
     }
-    /* --- FIN DEL NUEVO MENÚ --- */
 
-    section { margin-bottom: 3rem; padding-top: 2rem; }
+    /* --- LA MAGIA DE OCULTAR Y MOSTRAR SECCIONES --- */
+    .seccion-oculta {
+      display: none; /* Oculta la sección desde el principio */
+      margin-bottom: 3rem; 
+      padding-top: 1rem;
+    }
+    
+    /* :target se activa cuando el ID coincide con el clic del menú */
+    .seccion-oculta:target {
+      display: block; /* Muestra la sección */
+      animation: aparecerSuave 0.5s ease forwards; /* Le da el efecto de entrada */
+    }
+    
+    /* Animación para que no aparezca de golpe */
+    @keyframes aparecerSuave {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- ESTILOS DE TEXTO Y TARJETAS --- */
     h2 { border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
     
     .projects-grid {
@@ -84,11 +98,9 @@
       flex-direction: column;
       justify-content: space-between;
       border: 1px solid var(--border); 
-      /* Hacemos que la tarjeta reaccione al hover */
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* Efecto de flotar para las tarjetas */
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
@@ -129,6 +141,7 @@
       font-size: 0.9rem; 
       border-top: 1px solid var(--border); 
       padding-top: 1.5rem; 
+      margin-top: 4rem;
     }
   </style>
 </head>
@@ -136,19 +149,24 @@
 
   <header>
     <h1>catalina oyanedel</h1>
-    <p class="subtitle">diseñadora</p>
     
-    <!-- Este es tu nuevo menú -->
+    <!-- Menú principal -->
     <nav class="menu-categorias">
+      <a href="#sobre-mi">sobre mí</a>
       <a href="#interaccion">interacción digital</a>
       <a href="#grafico">diseño gráfico</a>
       <a href="#ilustracion">ilustración</a>
     </nav>
   </header>
 
-  <!-- Cada sección ahora tiene un ID que coincide con los enlaces del menú de arriba -->
+  <!-- SECCIONES OCULTAS (tienen la clase .seccion-oculta) -->
   
-  <section id="interaccion">
+  <section id="sobre-mi" class="seccion-oculta">
+    <h2>sobre mí</h2>
+    <p>soy un diseñador/desarrollador enfocado en crear soluciones visuales funcionales y atractivas. me apasiona explorar la intersección entre el arte, la tecnología y el diseño.</p>
+  </section>
+
+  <section id="interaccion" class="seccion-oculta">
     <h2>interacción digital</h2>
     <div class="projects-grid">
       <div class="card">
@@ -166,7 +184,7 @@
     </div>
   </section>
 
-  <section id="grafico">
+  <section id="grafico" class="seccion-oculta">
     <h2>diseño gráfico</h2>
     <div class="projects-grid">
       <div class="card">
@@ -184,7 +202,7 @@
     </div>
   </section>
 
-  <section id="ilustracion">
+  <section id="ilustracion" class="seccion-oculta">
     <h2>ilustración</h2>
     <div class="projects-grid">
       <div class="card">
@@ -202,10 +220,10 @@
     </div>
   </section>
 
+  <!-- CONTACTO Y FOOTER (Siempre visibles) -->
+  
   <section id="contact">
-    <h2>contacto</h2>
-    <p>¿tienes alguna consulta o propuesta de colaboración?</p>
-    <div class="links" style="margin-top: 1rem;">
+    <div class="links" style="text-align: center; margin-top: 1rem;">
       <a href="mailto:tu-correo@ejemplo.com">enviar correo</a>
       <a href="https://linkedin.com/in/tu-usuario" target="_blank">linkedin</a>
       <a href="https://behance.net/tu-usuario" target="_blank">behance</a>
@@ -213,7 +231,7 @@
   </section>
 
   <footer>
-    <p>© 2026 catalina oyanedel. alojado en github pages.</p>
+    <p>© 2026 [tu nombre] catalina oyanedel. alojado en github pages.</p>
   </footer>
 
 </body>
