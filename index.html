@@ -11,12 +11,12 @@
 
   <style>
     :root {
-      --bg: #ffffff; 
-      --card-bg: #f3f4f6; 
-      --text: #000000; 
-      --text-muted: #4b5563; 
-      --accent: #000000; 
-      --border: #e5e7eb; 
+      /* Nueva paleta de colores para fondo con imagen */
+      --text: #ffffff; /* Texto blanco principal */
+      --text-muted: #e5e7eb; /* Blanco un poco más suave */
+      --accent: #ffffff; 
+      --card-bg: rgba(255, 255, 255, 0.15); /* Fondo de tarjeta semitransparente */
+      --border: rgba(255, 255, 255, 0.3); /* Bordes suaves y transparentes */
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,16 +28,41 @@
     body {
       font-family: 'Instrument Sans', sans-serif;
       text-transform: lowercase; 
-      background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 4rem 1rem 2rem 1rem; /* Aumenté un poco el espacio arriba */
+      padding: 2rem 1rem;
       max-width: 800px;
       margin: 0 auto;
+      
+      /* --- FONDO DE PANTALLA COMPLETA --- */
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed; /* El fondo se queda quieto al hacer scroll */
+      background-repeat: no-repeat;
+      
+      /* --- CENTRADO VERTICAL --- */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Empuja el contenido al centro de la pantalla */
+      align-items: center;
     }
     
-    header { text-align: center; margin-bottom: 4rem; }
-    h1 { font-size: 3rem; color: var(--accent); margin-bottom: 1.5rem; }
+    /* Contenedores al 100% para que no se encojan con el centrado */
+    header, section, footer, #contact {
+      width: 100%;
+    }
+    
+    header { text-align: center; margin-bottom: 2rem; }
+    
+    /* Agregamos una sombra sutil al texto para que sea legible sobre la imagen */
+    h1 { 
+      font-size: 3.5rem; 
+      color: var(--accent); 
+      margin-bottom: 1.5rem; 
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3); 
+    }
     
     /* --- MENÚ --- */
     .menu-categorias {
@@ -48,41 +73,44 @@
     }
     
     .menu-categorias a {
-      color: var(--text-muted);
+      color: var(--text);
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
       padding-bottom: 0.3rem;
       border-bottom: 2px solid transparent;
       transition: color 0.3s ease, border-bottom 0.3s ease;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
     
     .menu-categorias a:hover {
-      color: var(--accent);
       border-bottom: 2px solid var(--accent);
     }
 
-    /* --- LA MAGIA DE OCULTAR Y MOSTRAR SECCIONES --- */
+    /* --- SECCIONES OCULTAS --- */
     .seccion-oculta {
-      display: none; /* Oculta la sección desde el principio */
+      display: none; 
       margin-bottom: 3rem; 
       padding-top: 1rem;
     }
     
-    /* :target se activa cuando el ID coincide con el clic del menú */
     .seccion-oculta:target {
-      display: block; /* Muestra la sección */
-      animation: aparecerSuave 0.5s ease forwards; /* Le da el efecto de entrada */
+      display: block; 
+      animation: aparecerSuave 0.5s ease forwards; 
     }
     
-    /* Animación para que no aparezca de golpe */
     @keyframes aparecerSuave {
       from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     /* --- ESTILOS DE TEXTO Y TARJETAS --- */
-    h2 { border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+    h2 { 
+      border-bottom: 1px solid var(--border); 
+      padding-bottom: 0.5rem; 
+      margin-bottom: 1.5rem; 
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3); 
+    }
     
     .projects-grid {
       display: grid;
@@ -99,20 +127,23 @@
       justify-content: space-between;
       border: 1px solid var(--border); 
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      /* Efecto visual de cristal empañado */
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     }
     
-    .card h3 { margin-bottom: 0.5rem; color: var(--accent); }
-    .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+    .card h3 { margin-bottom: 0.5rem; color: var(--accent); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+    .card p { color: var(--text); font-size: 0.95rem; margin-bottom: 1rem; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
     
     .tags { margin-bottom: 1rem; }
     .tags span {
       display: inline-block;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.15);
       color: var(--text);
       border: 1px solid var(--text);
       padding: 0.2rem 0.6rem;
@@ -128,11 +159,13 @@
       margin-right: 1rem;
       font-weight: bold;
       text-decoration: underline; 
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
     
     .links a:hover { 
       background-color: var(--text);
-      color: var(--bg);
+      color: #000000; /* Al pasar el mouse, el texto se pone negro sobre fondo blanco */
+      text-shadow: none;
     }
     
     footer { 
@@ -141,7 +174,8 @@
       font-size: 0.9rem; 
       border-top: 1px solid var(--border); 
       padding-top: 1.5rem; 
-      margin-top: 4rem;
+      margin-top: 2rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
   </style>
 </head>
@@ -159,11 +193,13 @@
     </nav>
   </header>
 
-  <!-- SECCIONES OCULTAS (tienen la clase .seccion-oculta) -->
+  <!-- SECCIONES OCULTAS -->
   
   <section id="sobre-mi" class="seccion-oculta">
     <h2>sobre mí</h2>
-    <p>soy un diseñador/desarrollador enfocado en crear soluciones visuales funcionales y atractivas. me apasiona explorar la intersección entre el arte, la tecnología y el diseño.</p>
+    <div class="card">
+      <p>soy un diseñador/desarrollador enfocado en crear soluciones visuales funcionales y atractivas. me apasiona explorar la intersección entre el arte, la tecnología y el diseño.</p>
+    </div>
   </section>
 
   <section id="interaccion" class="seccion-oculta">
@@ -220,18 +256,16 @@
     </div>
   </section>
 
-  <!-- CONTACTO Y FOOTER (Siempre visibles) -->
+  <!-- CONTACTO Y FOOTER (Siempre visibles debajo del contenido) -->
   
   <section id="contact">
     <div class="links" style="text-align: center; margin-top: 1rem;">
-      <a href="mailto:tu-correo@ejemplo.com">enviar correo</a>
-      <a href="https://linkedin.com/in/tu-usuario" target="_blank">linkedin</a>
-      <a href="https://behance.net/tu-usuario" target="_blank">behance</a>
+      <a href="mailto:catalina.oyanedel@mail.udp.cl">enviar correo</a>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 [tu nombre] catalina oyanedel. alojado en github pages.</p>
+    <p>© 2026 catalina oyanedel. alojado en github pages.</p>
   </footer>
 
 </body>
