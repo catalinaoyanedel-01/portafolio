@@ -35,46 +35,43 @@
       flex-direction: column;
       justify-content: center; 
       align-items: center;
-      position: relative; /* Necesario para anclar el menú abajo */
+      position: relative; 
     }
     
     /* --- SECCIÓN CENTRAL (Nombre y Sobre mí) --- */
     .hero-center {
       text-align: center;
-      /* Lo subimos un poquitito visualmente para compensar el menú de abajo */
       transform: translateY(-2rem); 
     }
 
     h1 { 
-      font-size: 4rem; /* Un poco más grande, como en tu Figma */
+      font-size: 4rem; 
       color: var(--accent); 
-      margin-bottom: 0.2rem; /* Menos espacio entre el nombre y el link */
-      letter-spacing: -1px; /* Ajuste tipográfico fino */
-      text-shadow: 0 2px 8px rgba(0,0,0,0.2); 
+      margin-bottom: 0.2rem; 
+      letter-spacing: -1px; 
     }
 
     .link-sobre-mi {
       color: var(--text);
       font-size: 1.3rem;
       text-decoration: none;
-      border-bottom: 1px solid var(--text); /* Subrayado elegante */
+      border-bottom: 1px solid var(--text); 
       padding-bottom: 2px;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
       transition: opacity 0.3s ease;
     }
 
     .link-sobre-mi:hover {
-      opacity: 0.7; /* Efecto sutil al pasar el mouse */
+      opacity: 0.7; 
     }
     
     /* --- MENÚ INFERIOR (Bottom Nav) --- */
     .menu-inferior {
       position: absolute;
-      bottom: 3rem; /* Separación desde el borde inferior de la pantalla */
+      bottom: 3rem; 
       width: 100%;
       padding: 0 2rem;
       display: flex;
-      justify-content: space-evenly; /* Distribuye el espacio entre los links equitativamente */
+      justify-content: space-evenly; 
       flex-wrap: wrap;
       gap: 1rem;
     }
@@ -83,8 +80,7 @@
       color: var(--text);
       text-decoration: none;
       font-size: 1.1rem;
-      font-weight: 400; /* Peso regular, como en tu diseño */
-      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      font-weight: 400; 
       transition: opacity 0.3s ease;
     }
     
@@ -109,7 +105,6 @@
   <!-- Contenedor central -->
   <main class="hero-center">
     <h1>catalina oyanedel</h1>
-    <!-- Fíjate en el target="_blank", esto abre la nueva pestaña -->
     <a href="sobre-mi.html" class="link-sobre-mi" target="_blank">sobre mí</a>
   </main>
 
