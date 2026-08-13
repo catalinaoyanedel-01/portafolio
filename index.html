@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>mi portafolio</title>
+  <title>catalina oyanedel | portafolio</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,262 +11,115 @@
 
   <style>
     :root {
-      /* Nueva paleta de colores para fondo con imagen */
-      --text: #ffffff; /* Texto blanco principal */
-      --text-muted: #e5e7eb; /* Blanco un poco más suave */
+      --text: #ffffff; 
       --accent: #ffffff; 
-      --card-bg: rgba(255, 255, 255, 0.15); /* Fondo de tarjeta semitransparente */
-      --border: rgba(255, 255, 255, 0.3); /* Bordes suaves y transparentes */
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       font-family: 'Instrument Sans', sans-serif;
       text-transform: lowercase; 
       color: var(--text);
-      line-height: 1.6;
-      padding: 2rem 1rem;
-      max-width: 800px;
-      margin: 0 auto;
       
-      /* --- FONDO DE PANTALLA COMPLETA --- */
+      /* Fondo a pantalla completa */
       background-image: url('background.png');
       background-size: cover;
       background-position: center;
-      background-attachment: fixed; /* El fondo se queda quieto al hacer scroll */
+      background-attachment: fixed; 
       background-repeat: no-repeat;
       
-      /* --- CENTRADO VERTICAL --- */
+      /* Centrado perfecto del contenedor principal */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* Empuja el contenido al centro de la pantalla */
+      justify-content: center; 
       align-items: center;
+      position: relative; /* Necesario para anclar el menú abajo */
     }
     
-    /* Contenedores al 100% para que no se encojan con el centrado */
-    header, section, footer, #contact {
-      width: 100%;
+    /* --- SECCIÓN CENTRAL (Nombre y Sobre mí) --- */
+    .hero-center {
+      text-align: center;
+      /* Lo subimos un poquitito visualmente para compensar el menú de abajo */
+      transform: translateY(-2rem); 
     }
-    
-    header { text-align: center; margin-bottom: 2rem; }
-    
-    /* Agregamos una sombra sutil al texto para que sea legible sobre la imagen */
+
     h1 { 
-      font-size: 3.5rem; 
+      font-size: 4rem; /* Un poco más grande, como en tu Figma */
       color: var(--accent); 
-      margin-bottom: 1.5rem; 
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3); 
+      margin-bottom: 0.2rem; /* Menos espacio entre el nombre y el link */
+      letter-spacing: -1px; /* Ajuste tipográfico fino */
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2); 
+    }
+
+    .link-sobre-mi {
+      color: var(--text);
+      font-size: 1.3rem;
+      text-decoration: none;
+      border-bottom: 1px solid var(--text); /* Subrayado elegante */
+      padding-bottom: 2px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      transition: opacity 0.3s ease;
+    }
+
+    .link-sobre-mi:hover {
+      opacity: 0.7; /* Efecto sutil al pasar el mouse */
     }
     
-    /* --- MENÚ --- */
-    .menu-categorias {
+    /* --- MENÚ INFERIOR (Bottom Nav) --- */
+    .menu-inferior {
+      position: absolute;
+      bottom: 3rem; /* Separación desde el borde inferior de la pantalla */
+      width: 100%;
+      padding: 0 2rem;
       display: flex;
-      justify-content: center;
-      gap: 2rem;
+      justify-content: space-evenly; /* Distribuye el espacio entre los links equitativamente */
       flex-wrap: wrap;
+      gap: 1rem;
     }
     
-    .menu-categorias a {
+    .menu-inferior a {
       color: var(--text);
       text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: bold;
-      padding-bottom: 0.3rem;
-      border-bottom: 2px solid transparent;
-      transition: color 0.3s ease, border-bottom 0.3s ease;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      font-size: 1.1rem;
+      font-weight: 400; /* Peso regular, como en tu diseño */
+      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      transition: opacity 0.3s ease;
     }
     
-    .menu-categorias a:hover {
-      border-bottom: 2px solid var(--accent);
+    .menu-inferior a:hover {
+      opacity: 0.7;
     }
 
-    /* --- SECCIONES OCULTAS --- */
-    .seccion-oculta {
-      display: none; 
-      margin-bottom: 3rem; 
-      padding-top: 1rem;
-    }
-    
-    .seccion-oculta:target {
-      display: block; 
-      animation: aparecerSuave 0.5s ease forwards; 
-    }
-    
-    @keyframes aparecerSuave {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* --- ESTILOS DE TEXTO Y TARJETAS --- */
-    h2 { 
-      border-bottom: 1px solid var(--border); 
-      padding-bottom: 0.5rem; 
-      margin-bottom: 1.5rem; 
-      text-shadow: 0 1px 3px rgba(0,0,0,0.3); 
-    }
-    
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    
-    .card {
-      background: var(--card-bg);
-      border-radius: 8px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid var(--border); 
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      /* Efecto visual de cristal empañado */
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    }
-    
-    .card h3 { margin-bottom: 0.5rem; color: var(--accent); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
-    .card p { color: var(--text); font-size: 0.95rem; margin-bottom: 1rem; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
-    
-    .tags { margin-bottom: 1rem; }
-    .tags span {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.15);
-      color: var(--text);
-      border: 1px solid var(--text);
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      margin-right: 0.4rem;
-      margin-bottom: 0.4rem;
-    }
-    
-    .links a {
-      color: var(--accent);
-      text-decoration: none;
-      margin-right: 1rem;
-      font-weight: bold;
-      text-decoration: underline; 
-      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    }
-    
-    .links a:hover { 
-      background-color: var(--text);
-      color: #000000; /* Al pasar el mouse, el texto se pone negro sobre fondo blanco */
-      text-shadow: none;
-    }
-    
-    footer { 
-      text-align: center; 
-      color: var(--text-muted); 
-      font-size: 0.9rem; 
-      border-top: 1px solid var(--border); 
-      padding-top: 1.5rem; 
-      margin-top: 2rem;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    /* Ajuste para pantallas pequeñas (celulares) */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .menu-inferior {
+        flex-direction: column;
+        align-items: center;
+        bottom: 2rem;
+        gap: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
+  <!-- Contenedor central -->
+  <main class="hero-center">
     <h1>catalina oyanedel</h1>
-    
-    <!-- Menú principal -->
-    <nav class="menu-categorias">
-      <a href="#sobre-mi">sobre mí</a>
-      <a href="#interaccion">interacción digital</a>
-      <a href="#grafico">diseño gráfico</a>
-      <a href="#ilustracion">ilustración</a>
-    </nav>
-  </header>
+    <!-- Fíjate en el target="_blank", esto abre la nueva pestaña -->
+    <a href="sobre-mi.html" class="link-sobre-mi" target="_blank">sobre mí</a>
+  </main>
 
-  <!-- SECCIONES OCULTAS -->
-  
-  <section id="sobre-mi" class="seccion-oculta">
-    <h2>sobre mí</h2>
-    <div class="card">
-      <p>soy un diseñador/desarrollador enfocado en crear soluciones visuales funcionales y atractivas. me apasiona explorar la intersección entre el arte, la tecnología y el diseño.</p>
-    </div>
-  </section>
-
-  <section id="interaccion" class="seccion-oculta">
-    <h2>interacción digital</h2>
-    <div class="projects-grid">
-      <div class="card">
-        <div>
-          <h3>nombre del proyecto web</h3>
-          <p>descripción de tu proyecto de interacción digital. qué tecnologías usaste y cuál fue el resultado.</p>
-          <div class="tags">
-            <span>javascript</span><span>html/css</span>
-          </div>
-        </div>
-        <div class="links">
-          <a href="#" target="_blank">ver proyecto</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="grafico" class="seccion-oculta">
-    <h2>diseño gráfico</h2>
-    <div class="projects-grid">
-      <div class="card">
-        <div>
-          <h3>branding para marca</h3>
-          <p>diseño de identidad visual, manual de marca y aplicaciones gráficas para cliente.</p>
-          <div class="tags">
-            <span>illustrator</span><span>photoshop</span>
-          </div>
-        </div>
-        <div class="links">
-          <a href="#" target="_blank">ver galería</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="ilustracion" class="seccion-oculta">
-    <h2>ilustración</h2>
-    <div class="projects-grid">
-      <div class="card">
-        <div>
-          <h3>serie de ilustraciones 2d</h3>
-          <p>colección de personajes ilustrados digitalmente para campaña de concientización.</p>
-          <div class="tags">
-            <span>procreate</span><span>arte digital</span>
-          </div>
-        </div>
-        <div class="links">
-          <a href="#" target="_blank">ver galería</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACTO Y FOOTER (Siempre visibles debajo del contenido) -->
-  
-  <section id="contact">
-    <div class="links" style="text-align: center; margin-top: 1rem;">
-      <a href="mailto:catalina.oyanedel@mail.udp.cl">enviar correo</a>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2026 catalina oyanedel. alojado en github pages.</p>
-  </footer>
+  <!-- Menú anclado abajo -->
+  <nav class="menu-inferior">
+    <a href="grafico.html" target="_blank">diseño gráfico</a>
+    <a href="fotografia.html" target="_blank">fotografía</a>
+    <a href="interaccion.html" target="_blank">interacción digital</a>
+    <a href="ilustracion.html" target="_blank">ilustración / pintura</a>
+  </nav>
 
 </body>
 </html>
