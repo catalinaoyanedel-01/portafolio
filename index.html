@@ -5,25 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>mi portafolio</title>
   
-  <!-- Aquí conectamos la fuente "Instrument Sans" desde Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      /* Cambiamos la paleta de colores oscuros a blanco y negro */
-      --bg: #ffffff; /* Fondo blanco */
-      --card-bg: #f3f4f6; /* Gris muy claro para las tarjetas */
-      --text: #000000; /* Texto negro principal */
-      --text-muted: #4b5563; /* Gris oscuro para subtítulos */
-      --accent: #000000; /* Acentos en negro en lugar de azul */
-      --border: #e5e7eb; /* Color suave para líneas divisorias */
+      --bg: #ffffff; 
+      --card-bg: #f3f4f6; 
+      --text: #000000; 
+      --text-muted: #4b5563; 
+      --accent: #000000; 
+      --border: #e5e7eb; 
     }
+    
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
+    /* Esto hace que al hacer clic en el menú, la página se deslice suavemente */
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      /* Aplicamos la nueva fuente y forzamos todo a minúsculas */
       font-family: 'Instrument Sans', sans-serif;
       text-transform: lowercase; 
       background-color: var(--bg);
@@ -38,8 +41,33 @@
     h1 { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
     .subtitle { color: var(--text-muted); font-size: 1.2rem; }
     
-    section { margin-bottom: 3rem; }
-    /* Cambié la línea de separación a un gris más sutil */
+    /* --- INICIO DEL NUEVO MENÚ --- */
+    .menu-categorias {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .menu-categorias a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid transparent;
+      /* Aquí está la animación de transición suave */
+      transition: color 0.3s ease, border-bottom 0.3s ease;
+    }
+    
+    .menu-categorias a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    /* --- FIN DEL NUEVO MENÚ --- */
+
+    section { margin-bottom: 3rem; padding-top: 2rem; }
     h2 { border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
     
     .projects-grid {
@@ -55,8 +83,15 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      /* Añadí un borde sutil a las tarjetas para que resalten en el fondo blanco */
       border: 1px solid var(--border); 
+      /* Hacemos que la tarjeta reaccione al hover */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Efecto de flotar para las tarjetas */
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
     }
     
     .card h3 { margin-bottom: 0.5rem; color: var(--accent); }
@@ -65,7 +100,6 @@
     .tags { margin-bottom: 1rem; }
     .tags span {
       display: inline-block;
-      /* Etiquetas de tecnologías en blanco con borde negro para el diseño minimalista */
       background: #ffffff;
       color: var(--text);
       border: 1px solid var(--text);
@@ -81,11 +115,10 @@
       text-decoration: none;
       margin-right: 1rem;
       font-weight: bold;
-      /* Agregué un subrayado por defecto para que parezcan enlaces clásicos */
       text-decoration: underline; 
     }
+    
     .links a:hover { 
-      /* Efecto al pasar el mouse */
       background-color: var(--text);
       color: var(--bg);
     }
@@ -102,47 +135,70 @@
 <body>
 
   <header>
-    <h1>[tu nombre]</h1>
-    <p class="subtitle">desarrollador de software</p>
+    <h1>catalina oyanedel</h1>
+    <p class="subtitle">diseñadora</p>
+    
+    <!-- Este es tu nuevo menú -->
+    <nav class="menu-categorias">
+      <a href="#interaccion">interacción digital</a>
+      <a href="#grafico">diseño gráfico</a>
+      <a href="#ilustracion">ilustración</a>
+    </nav>
   </header>
 
-  <section id="about">
-    <h2>sobre mí</h2>
-    <p>desarrollador enfocado en crear soluciones web funcionales, bien estructuradas y optimizadas. apasionado por aprender nuevas tecnologías y escribir código limpio.</p>
+  <!-- Cada sección ahora tiene un ID que coincide con los enlaces del menú de arriba -->
+  
+  <section id="interaccion">
+    <h2>interacción digital</h2>
+    <div class="projects-grid">
+      <div class="card">
+        <div>
+          <h3>nombre del proyecto web</h3>
+          <p>descripción de tu proyecto de interacción digital. qué tecnologías usaste y cuál fue el resultado.</p>
+          <div class="tags">
+            <span>javascript</span><span>html/css</span>
+          </div>
+        </div>
+        <div class="links">
+          <a href="#" target="_blank">ver proyecto</a>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="projects">
-    <h2>proyectos destacados</h2>
+  <section id="grafico">
+    <h2>diseño gráfico</h2>
     <div class="projects-grid">
-      
       <div class="card">
         <div>
-          <h3>nombre del proyecto 1</h3>
-          <p>descripción breve del proyecto, qué problema resuelve y tu papel en su desarrollo.</p>
+          <h3>branding para marca</h3>
+          <p>diseño de identidad visual, manual de marca y aplicaciones gráficas para cliente.</p>
           <div class="tags">
-            <span>javascript</span><span>html/css</span><span>api rest</span>
+            <span>illustrator</span><span>photoshop</span>
           </div>
         </div>
         <div class="links">
-          <a href="#" target="_blank">demo</a>
-          <a href="#" target="_blank">código</a>
+          <a href="#" target="_blank">ver galería</a>
         </div>
       </div>
+    </div>
+  </section>
 
+  <section id="ilustracion">
+    <h2>ilustración</h2>
+    <div class="projects-grid">
       <div class="card">
         <div>
-          <h3>nombre del proyecto 2</h3>
-          <p>aplicación web diseñada para automatizar tareas clave de usuario con un diseño intuitivo.</p>
+          <h3>serie de ilustraciones 2d</h3>
+          <p>colección de personajes ilustrados digitalmente para campaña de concientización.</p>
           <div class="tags">
-            <span>react</span><span>tailwind</span>
+            <span>procreate</span><span>arte digital</span>
           </div>
         </div>
         <div class="links">
-          <a href="#" target="_blank">demo</a>
-          <a href="#" target="_blank">código</a>
+          <a href="#" target="_blank">ver galería</a>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -152,12 +208,12 @@
     <div class="links" style="margin-top: 1rem;">
       <a href="mailto:tu-correo@ejemplo.com">enviar correo</a>
       <a href="https://linkedin.com/in/tu-usuario" target="_blank">linkedin</a>
-      <a href="https://github.com/tu-usuario" target="_blank">github</a>
+      <a href="https://behance.net/tu-usuario" target="_blank">behance</a>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 [tu nombre]. alojado en github pages.</p>
+    <p>© 2026 catalina oyanedel. alojado en github pages.</p>
   </footer>
 
 </body>
