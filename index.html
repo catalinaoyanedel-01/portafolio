@@ -19,7 +19,6 @@
       box-sizing: border-box; 
       margin: 0; 
       padding: 0; 
-      /* Renderizado suavizado y nítido de letras */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -29,14 +28,12 @@
       text-transform: lowercase; 
       color: var(--text);
       
-      /* Fondo a pantalla completa */
       background-image: url('background.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed; 
       background-repeat: no-repeat;
       
-      /* Centrado perfecto */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -53,15 +50,15 @@
 
     h1 { 
       font-size: 4rem; 
-      font-weight: bold; /* Quita el grosor automático y la hace más fina */
+      font-weight: 400; 
       color: var(--accent); 
       margin-bottom: 0.3rem; 
-      letter-spacing: -0.03em; /* Ajuste tipográfico estilo Figma */
+      letter-spacing: -0.03em; 
     }
 
     .link-sobre-mi {
       color: var(--text);
-      font-size: 1.2rem;
+      font-size: 1.25rem; /* Ajustado para coincidir con las categorías */
       font-weight: 400;
       text-decoration: none;
       border-bottom: 1px solid var(--text); 
@@ -88,7 +85,7 @@
     .menu-inferior a {
       color: var(--text);
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1.25rem; /* Agrandado como en sobre-mí */
       font-weight: 400; 
       transition: opacity 0.3s ease;
     }
