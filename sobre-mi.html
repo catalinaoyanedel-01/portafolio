@@ -30,23 +30,23 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       min-height: 100vh;
-      padding: 2.5rem 3rem;
       display: flex;
       flex-direction: column;
     }
 
-    /* --- NAVEGACIÓN SUPERIOR CON LÍNEA CONTINUA --- */
+    /* --- NAVEGACIÓN SUPERIOR BORDES COMPLETOS Y CENTRADO --- */
     .top-nav {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      /* Padding igual arriba y abajo para un centrado vertical exacto */
+      padding: 1.8rem 3rem; 
       margin-bottom: 8rem; 
       flex-wrap: wrap;
       gap: 1.5rem;
-      /* Línea completa a lo largo de todo el ancho del contenedor */
-      border-bottom: 1px solid var(--nav-link-color);
-      padding-bottom: 1rem; /* Espacio entre los textos y la línea horizontal */
+      /* Línea un poquito más gruesa y de borde a borde */
+      border-bottom: 1.5px solid var(--nav-link-color);
     }
 
     .top-nav a {
@@ -64,6 +64,7 @@
     /* --- CONTENIDO PRINCIPAL --- */
     .content-container {
       max-width: 680px; 
+      padding: 0 3rem; /* Alineado con el margen del menú superior */
     }
 
     h1 {
@@ -89,15 +90,16 @@
     }
 
     @media (max-width: 768px) {
-      body {
-        padding: 1.5rem;
-      }
-
       .top-nav {
+        padding: 1.5rem;
         flex-direction: column;
         align-items: flex-start;
         margin-bottom: 4rem;
         gap: 1rem;
+      }
+
+      .content-container {
+        padding: 0 1.5rem;
       }
 
       .bio-text {
