@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Portafolio</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    header { text-align: center; margin-bottom: 3rem; }
+    h1 { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-muted); font-size: 1.2rem; }
+    section { margin-bottom: 3rem; }
+    h2 { border-bottom: 2px solid var(--card-bg); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card h3 { margin-bottom: 0.5rem; color: var(--accent); }
+    .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+    .tags { margin-bottom: 1rem; }
+    .tags span {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-right: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .links a {
+      color: var(--accent);
+      text-decoration: none;
+      margin-right: 1rem;
+      font-weight: bold;
+    }
+    .links a:hover { text-decoration: underline; }
+    footer { text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--card-bg); padding-top: 1.5rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>[Tu Nombre]</h1>
+    <p class="subtitle">Desarrollador de Software</p>
+  </header>
+
+  <section id="about">
+    <h2>Sobre mí</h2>
+    <p>Desarrollador enfocado en crear soluciones web funcionales, bien estructuradas y optimizadas. Apasionado por aprender nuevas tecnologías y escribir código limpio.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Proyectos Destacados</h2>
+    <div class="projects-grid">
+      
+      <div class="card">
+        <div>
+          <h3>Nombre del Proyecto 1</h3>
+          <p>Descripción breve del proyecto, qué problema resuelve y tu papel en su desarrollo.</p>
+          <div class="tags">
+            <span>JavaScript</span><span>HTML/CSS</span><span>API REST</span>
+          </div>
+        </div>
+        <div class="links">
+          <a href="#" target="_blank">Demo</a>
+          <a href="#" target="_blank">Código</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h3>Nombre del Proyecto 2</h3>
+          <p>Aplicación web diseñada para automatizar tareas clave de usuario con un diseño intuitivo.</p>
+          <div class="tags">
+            <span>React</span><span>Tailwind</span>
+          </div>
+        </div>
+        <div class="links">
+          <a href="#" target="_blank">Demo</a>
+          <a href="#" target="_blank">Código</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contacto</h2>
+    <p>¿Tienes alguna consulta o propuesta de colaboración?</p>
+    <div class="links" style="margin-top: 1rem;">
+      <a href="mailto:tu-correo@ejemplo.com">Enviar Correo</a>
+      <a href="https://linkedin.com/in/tu-usuario" target="_blank">LinkedIn</a>
+      <a href="https://github.com/tu-usuario" target="_blank">GitHub</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 [Tu Nombre]. Alojado en GitHub Pages.</p>
+  </footer>
+
+</body>
+</html>
