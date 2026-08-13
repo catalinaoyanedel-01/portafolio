@@ -3,18 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Portafolio</title>
+  <title>mi portafolio</title>
+  
+  <!-- Aquí conectamos la fuente "Instrument Sans" desde Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
+      /* Cambiamos la paleta de colores oscuros a blanco y negro */
+      --bg: #ffffff; /* Fondo blanco */
+      --card-bg: #f3f4f6; /* Gris muy claro para las tarjetas */
+      --text: #000000; /* Texto negro principal */
+      --text-muted: #4b5563; /* Gris oscuro para subtítulos */
+      --accent: #000000; /* Acentos en negro en lugar de azul */
+      --border: #e5e7eb; /* Color suave para líneas divisorias */
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      /* Aplicamos la nueva fuente y forzamos todo a minúsculas */
+      font-family: 'Instrument Sans', sans-serif;
+      text-transform: lowercase; 
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -22,16 +33,21 @@
       max-width: 800px;
       margin: 0 auto;
     }
+    
     header { text-align: center; margin-bottom: 3rem; }
     h1 { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
     .subtitle { color: var(--text-muted); font-size: 1.2rem; }
+    
     section { margin-bottom: 3rem; }
-    h2 { border-bottom: 2px solid var(--card-bg); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+    /* Cambié la línea de separación a un gris más sutil */
+    h2 { border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+    
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
     }
+    
     .card {
       background: var(--card-bg);
       border-radius: 8px;
@@ -39,71 +55,91 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      /* Añadí un borde sutil a las tarjetas para que resalten en el fondo blanco */
+      border: 1px solid var(--border); 
     }
+    
     .card h3 { margin-bottom: 0.5rem; color: var(--accent); }
     .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+    
     .tags { margin-bottom: 1rem; }
     .tags span {
       display: inline-block;
-      background: rgba(56, 189, 248, 0.1);
-      color: var(--accent);
+      /* Etiquetas de tecnologías en blanco con borde negro para el diseño minimalista */
+      background: #ffffff;
+      color: var(--text);
+      border: 1px solid var(--text);
       padding: 0.2rem 0.6rem;
       border-radius: 4px;
       font-size: 0.8rem;
       margin-right: 0.4rem;
       margin-bottom: 0.4rem;
     }
+    
     .links a {
       color: var(--accent);
       text-decoration: none;
       margin-right: 1rem;
       font-weight: bold;
+      /* Agregué un subrayado por defecto para que parezcan enlaces clásicos */
+      text-decoration: underline; 
     }
-    .links a:hover { text-decoration: underline; }
-    footer { text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--card-bg); padding-top: 1.5rem; }
+    .links a:hover { 
+      /* Efecto al pasar el mouse */
+      background-color: var(--text);
+      color: var(--bg);
+    }
+    
+    footer { 
+      text-align: center; 
+      color: var(--text-muted); 
+      font-size: 0.9rem; 
+      border-top: 1px solid var(--border); 
+      padding-top: 1.5rem; 
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>[Tu Nombre]</h1>
-    <p class="subtitle">Desarrollador de Software</p>
+    <h1>[tu nombre]</h1>
+    <p class="subtitle">desarrollador de software</p>
   </header>
 
   <section id="about">
-    <h2>Sobre mí</h2>
-    <p>Desarrollador enfocado en crear soluciones web funcionales, bien estructuradas y optimizadas. Apasionado por aprender nuevas tecnologías y escribir código limpio.</p>
+    <h2>sobre mí</h2>
+    <p>desarrollador enfocado en crear soluciones web funcionales, bien estructuradas y optimizadas. apasionado por aprender nuevas tecnologías y escribir código limpio.</p>
   </section>
 
   <section id="projects">
-    <h2>Proyectos Destacados</h2>
+    <h2>proyectos destacados</h2>
     <div class="projects-grid">
       
       <div class="card">
         <div>
-          <h3>Nombre del Proyecto 1</h3>
-          <p>Descripción breve del proyecto, qué problema resuelve y tu papel en su desarrollo.</p>
+          <h3>nombre del proyecto 1</h3>
+          <p>descripción breve del proyecto, qué problema resuelve y tu papel en su desarrollo.</p>
           <div class="tags">
-            <span>JavaScript</span><span>HTML/CSS</span><span>API REST</span>
+            <span>javascript</span><span>html/css</span><span>api rest</span>
           </div>
         </div>
         <div class="links">
-          <a href="#" target="_blank">Demo</a>
-          <a href="#" target="_blank">Código</a>
+          <a href="#" target="_blank">demo</a>
+          <a href="#" target="_blank">código</a>
         </div>
       </div>
 
       <div class="card">
         <div>
-          <h3>Nombre del Proyecto 2</h3>
-          <p>Aplicación web diseñada para automatizar tareas clave de usuario con un diseño intuitivo.</p>
+          <h3>nombre del proyecto 2</h3>
+          <p>aplicación web diseñada para automatizar tareas clave de usuario con un diseño intuitivo.</p>
           <div class="tags">
-            <span>React</span><span>Tailwind</span>
+            <span>react</span><span>tailwind</span>
           </div>
         </div>
         <div class="links">
-          <a href="#" target="_blank">Demo</a>
-          <a href="#" target="_blank">Código</a>
+          <a href="#" target="_blank">demo</a>
+          <a href="#" target="_blank">código</a>
         </div>
       </div>
 
@@ -111,17 +147,17 @@
   </section>
 
   <section id="contact">
-    <h2>Contacto</h2>
-    <p>¿Tienes alguna consulta o propuesta de colaboración?</p>
+    <h2>contacto</h2>
+    <p>¿tienes alguna consulta o propuesta de colaboración?</p>
     <div class="links" style="margin-top: 1rem;">
-      <a href="mailto:tu-correo@ejemplo.com">Enviar Correo</a>
-      <a href="https://linkedin.com/in/tu-usuario" target="_blank">LinkedIn</a>
-      <a href="https://github.com/tu-usuario" target="_blank">GitHub</a>
+      <a href="mailto:tu-correo@ejemplo.com">enviar correo</a>
+      <a href="https://linkedin.com/in/tu-usuario" target="_blank">linkedin</a>
+      <a href="https://github.com/tu-usuario" target="_blank">github</a>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 [Tu Nombre]. Alojado en GitHub Pages.</p>
+    <p>© 2026 [tu nombre]. alojado en github pages.</p>
   </footer>
 
 </body>
