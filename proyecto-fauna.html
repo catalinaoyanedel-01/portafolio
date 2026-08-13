@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>conoce a tu fauna y flora nativa | catalina oyanedel</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #d6e6ff;
+      --text-color: #2b2b2a; 
+      --line-color: #2b2b2a; 
+    }
+    
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    body {
+      font-family: 'Instrument Sans', sans-serif;
+      text-transform: lowercase; 
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- TITULAR SUPERIOR --- */
+    .top-header {
+      width: 100%;
+      padding: 1.8rem 3rem; 
+      border-bottom: 1.5px solid var(--line-color);
+      margin-bottom: 4rem;
+    }
+
+    .top-header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* --- LAYOUT 2 COLUMNAS --- */
+    .project-detail-container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      padding: 0 3rem 4rem 3rem;
+      align-items: start;
+    }
+
+    /* Columna Texto */
+    .info-column p {
+      font-size: 1.35rem;
+      font-weight: 400;
+      line-height: 1.35;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-column u {
+      text-underline-offset: 3px;
+    }
+
+    .asterisk {
+      font-size: 4rem;
+      font-weight: 400;
+      line-height: 1;
+      margin: 1rem 0 1.5rem 0;
+    }
+
+    /* Columna Galería */
+    .gallery-column {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .gallery-column img {
+      width: 48%;
+      height: auto;
+      object-fit: contain;
+      border: 1px solid var(--line-color);
+    }
+
+    @media (max-width: 900px) {
+      .top-header { padding: 1.5rem; }
+      .project-detail-container {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem 3rem 1.5rem;
+        gap: 2.5rem;
+      }
+      .gallery-column img {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-header">
+    <h1>conoce a tu fauna y flora nativa</h1>
+  </header>
+
+  <main class="project-detail-container">
+    
+    <!-- Información -->
+    <section class="info-column">
+      <p>
+        proyecto personal ilustrativo que busca educar a la comunidad chilena sobre nuestras especies nativas y endémicas.
+      </p>
+      <p>
+        consta de dos formatos:<br>
+        <u>el afiche y el folreto.</u>
+      </p>
+      
+      <div class="asterisk">*</div>
+
+      <p>
+        los afiches tiene como fin dar a conocer a través de lo visual y lo textual, realizando una ilustración que represente fielmente a la especie acompañada de su nombre común.
+      </p>
+      <p>
+        mientras que los folletos buscan informar en profundidad los diversos fenómenos que sufren las especies.
+      </p>
+    </section>
+
+    <!-- Galería con tus archivos png reales -->
+    <section class="gallery-column">
+      <img src="chilco2.png" alt="chilco 2">
+      <img src="chilco3.png" alt="chilco 3">
+    </section>
+
+  </main>
+
+</body>
+</html>
