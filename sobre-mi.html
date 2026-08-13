@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sobre mí | catalina oyanedel</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #f8ff9e; /* El color amarillo pastel de tu prototipo */
+      --text-color: #2b2b2a; /* Texto oscuro/casi negro */
+      --nav-link-color: #e07a38; /* Tono anaranjado/terracota de la barra superior */
+    }
+    
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    body {
+      font-family: 'Instrument Sans', sans-serif;
+      text-transform: lowercase; 
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      padding: 2.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- NAVEGACIÓN SUPERIOR --- */
+    .top-nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8rem; /* Espacio amplio antes del contenido */
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .top-nav a {
+      color: var(--nav-link-color);
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 400;
+      transition: opacity 0.3s ease;
+    }
+
+    .top-nav a:hover {
+      opacity: 0.7;
+    }
+
+    /* --- CONTENIDO PRINCIPAL --- */
+    .content-container {
+      max-width: 680px; /* Limita el ancho del texto para una lectura editorial cómoda */
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700; /* Negrita pronunciada como en Figma */
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .bio-text {
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.35;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .asterisk {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    /* Responsivo para pantallas pequeñas */
+    @media (max-width: 768px) {
+      body {
+        padding: 1.5rem;
+      }
+
+      .top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 4rem;
+        gap: 1rem;
+      }
+
+      .bio-text {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navegación superior -->
+  <nav class="top-nav">
+    <a href="grafico.html" target="_blank">diseño gráfico</a>
+    <a href="fotografia.html" target="_blank">fotografía</a>
+    <a href="interaccion.html" target="_blank">interacción digital</a>
+    <a href="ilustracion.html" target="_blank">ilustración / pintura</a>
+  </nav>
+
+  <!-- Contenido de Sobre Mí -->
+  <main class="content-container">
+    <h1>sobre mí</h1>
+    <p class="bio-text">
+      me interesa abordar los proyectos a través del storytelling, considerando las narrativas y la experiencia como una parte importante. he abordado principalmente temáticas relacionadas a la sociología y naturaleza.
+    </p>
+    <div class="asterisk">*</div>
+  </main>
+
+</body>
+</html>
