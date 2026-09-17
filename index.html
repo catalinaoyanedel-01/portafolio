@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>catalina oyanedel — portafolio multidisciplinar</title>
+<link rel="icon" type="image/png" href="imagenes/estrella.png">
+
+<style>
+  /* ============ TIPOGRAFÍAS ============
+     Coloca los archivos .otf dentro de una carpeta /fonts junto a este
+     index.html (te dejo los 3 que se usan listos para descargar).       */
+  @font-face{
+    font-family:'PP Writer';
+    src:url('fonts/PPWriter-Regular.otf') format('opentype');
+    font-weight:400;
+    font-style:normal;
+  }
+  @font-face{
+    font-family:'PP Writer Thin Text';
+    src:url('fonts/PPWriter-ThinText.otf') format('opentype');
+    font-weight:100;
+    font-style:normal;
+  }
+  @font-face{
+    font-family:'PP Lettra Mono';
+    src:url('fonts/PPLettraMono-MediumItalic.otf') format('opentype');
+    font-weight:500;
+    font-style:italic;
+  }
+
+  :root{
+    --azul:#271DDB;
+    --blanco:#FFFFFF;
+    --tinta:#161616;
+    --linea: rgba(39,29,219,0.35);
+    --linea-suave: rgba(39,29,219,0.16);
+    --maxw: 720px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--blanco);
+    color:var(--tinta);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img{ max-width:100%; display:block; }
+
+  a{ color:var(--azul); }
+
+  /* ============ TÍTULOS Y NOMBRE ============ */
+  .nombre{
+    font-family:'PP Writer', serif;
+    font-weight:400;
+    color:var(--azul);
+    letter-spacing:-0.02em;
+    margin:0;
+    line-height:1;
+  }
+
+  .tagline, .cuerpo-thin{
+    font-family:'PP Writer Thin Text', sans-serif;
+    font-weight:100;
+    letter-spacing:0.01em;
+    color:var(--tinta);
+  }
+
+  .mono-italica{
+    font-family:'PP Lettra Mono', monospace;
+    font-style:italic;
+    font-weight:500;
+    letter-spacing:0.01em;
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    padding:0 24px 96px;
+    text-align:center;
+  }
+
+  .hero__ornamento{
+    max-width:900px;
+    margin:0 auto;
+    width:100%;
+    opacity:0.9;
+  }
+
+  .hero__marca{
+    max-width:var(--maxw);
+    margin:8px auto 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+  }
+
+  .hero__estrella{
+    width:56px;
+    height:56px;
+    background:var(--azul);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+  .hero__estrella img{ width:60%; }
+
+  .hero__titulos{ text-align:left; }
+
+  .nombre{ font-size:clamp(28px, 4.5vw, 40px); }
+
+  .tagline{
+    font-size:clamp(15px, 2vw, 17px);
+    margin-top:2px;
+  }
+
+  .hero__intro{
+    max-width:560px;
+    margin:40px auto 0;
+    font-size:16px;
+    line-height:1.7;
+  }
+
+  .hero__cta{
+    display:inline-block;
+    margin-top:28px;
+    font-family:'PP Writer Thin Text', sans-serif;
+    font-size:15px;
+    letter-spacing:0.01em;
+    text-decoration:none;
+    border-bottom:1px solid var(--azul);
+    padding-bottom:2px;
+  }
+  .hero__cta:hover{ opacity:0.7; }
+
+  /* ============ SECCIONES ============ */
+  section{
+    max-width:1080px;
+    margin:0 auto;
+    padding:64px 24px;
+  }
+
+  .seccion__titulo{
+    font-family:'PP Writer', serif;
+    color:var(--azul);
+    letter-spacing:-0.02em;
+    font-size:20px;
+    margin:0 0 32px;
+  }
+
+  /* ============ FILTROS ============ */
+  .filtros{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:40px;
+  }
+
+  .filtro{
+    font-family:'PP Lettra Mono', monospace;
+    font-style:italic;
+    font-weight:500;
+    font-size:14px;
+    letter-spacing:0.01em;
+    color:var(--azul);
+    background:none;
+    border:1px solid var(--azul);
+    border-radius:999px;
+    padding:8px 18px;
+    cursor:pointer;
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+  .filtro:hover{ background:var(--linea-suave); }
+  .filtro.activo{ background:var(--azul); color:var(--blanco); }
+
+  /* ============ GRILLA DE PROYECTOS ============ */
+  .grilla{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+
+  @media (max-width:900px){
+    .grilla{ grid-template-columns:repeat(2, 1fr); }
+  }
+  @media (max-width:520px){
+    .grilla{ grid-template-columns:1fr; }
+  }
+
+  .proyecto{
+    aspect-ratio:4/5;
+    border:1px solid var(--azul);
+    border-radius:18px;
+    background:#EFEFEF;
+    display:flex;
+    align-items:flex-end;
+    padding:16px;
+    text-decoration:none;
+    color:var(--tinta);
+    overflow:hidden;
+    position:relative;
+    transition:transform 0.2s ease;
+  }
+  .proyecto:hover{ transform:translateY(-4px); }
+
+  .proyecto__info{
+    background:rgba(255,255,255,0.88);
+    padding:8px 12px;
+    border-radius:10px;
+    width:100%;
+  }
+
+  .proyecto__nombre{
+    font-family:'PP Writer', serif;
+    font-size:15px;
+    letter-spacing:-0.01em;
+    margin:0 0 2px;
+    color:var(--tinta);
+  }
+
+  .proyecto__categoria{
+    font-family:'PP Lettra Mono', monospace;
+    font-style:italic;
+    font-size:12px;
+    color:var(--azul);
+    margin:0;
+  }
+
+  .proyecto[hidden]{ display:none; }
+
+  /* ============ SOBRE MÍ ============ */
+  .sobre-mi{
+    max-width:var(--maxw);
+  }
+
+  .sobre-mi__texto{
+    font-size:16px;
+    line-height:1.7;
+    max-width:560px;
+  }
+
+  /* ============ CONTACTO ============ */
+  .contacto{
+    text-align:center;
+    border-top:1px solid var(--linea-suave);
+  }
+
+  .contacto__lista{
+    display:flex;
+    justify-content:center;
+    gap:28px;
+    flex-wrap:wrap;
+    margin-top:16px;
+    font-size:15px;
+  }
+
+  .contacto__lista a{ text-decoration:none; border-bottom:1px solid var(--linea); }
+  .contacto__lista a:hover{ border-color:var(--azul); }
+
+  footer{
+    text-align:center;
+    padding:32px 24px 48px;
+    font-family:'PP Lettra Mono', monospace;
+    font-style:italic;
+    font-size:12px;
+    color:var(--linea);
+  }
+
+  @media (max-width:560px){
+    .hero__marca{ flex-direction:column; }
+    .hero__titulos{ text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <img class="hero__ornamento" src="imagenes/ilus-vector.png" alt="">
+
+  <div class="hero__marca">
+    <div class="hero__estrella">
+      <img src="imagenes/estrella.png" alt="">
+    </div>
+    <div class="hero__titulos">
+      <p class="nombre">catalina oyanedel</p>
+      <p class="tagline">portafolio multidisciplinar.</p>
+    </div>
+  </div>
+
+  <p class="hero__intro">
+    en mis proyectos me inspiro principalmente desde la naturaleza, lo mágico
+    y los fenómenos sociales. parte importante de mis propuestas van de la
+    mano con la importancia del relato y la experiencia.
+  </p>
+
+  <a class="hero__cta" href="#proyectos">conoce más en profundidad aquí !</a>
+</header>
+
+<!-- ============ PROYECTOS ============ -->
+<section id="proyectos">
+  <h2 class="seccion__titulo">proyectos</h2>
+
+  <div class="filtros">
+    <button class="filtro activo" data-filtro="todo">todo</button>
+    <button class="filtro" data-filtro="diseno-editorial">diseño editorial</button>
+    <button class="filtro" data-filtro="fotografia">fotografía</button>
+    <button class="filtro" data-filtro="ilustracion">ilustración</button>
+    <button class="filtro" data-filtro="interaccion-digital">interacción digital</button>
+  </div>
+
+  <div class="grilla" id="grilla-proyectos">
+    <!-- Reemplaza título, categoría, imagen y enlace de cada proyecto -->
+    <a class="proyecto" data-categoria="diseno-editorial" href="#">
+      <div class="proyecto__info">
+        <p class="proyecto__nombre">ríos subterráneos</p>
+        <p class="proyecto__categoria">diseño editorial</p>
+      </div>
+    </a>
+    <a class="proyecto" data-categoria="diseno-editorial" href="#">
+      <div class="proyecto__info">
+        <p class="proyecto__nombre">cuerpos comunes</p>
+        <p class="proyecto__categoria">diseño editorial</p>
+      </div>
+    </a>
+    <a class="proyecto" data-categoria="fotografia" href="#">
+      <div class="proyecto__info">
+        <p class="proyecto__nombre">marea baja</p>
+        <p class="proyecto__categoria">fotografía</p>
+      </div>
+    </a>
+    <a class="proyecto" data-categoria="fotografia" href="#">
+      <div class="proyecto__info">
+        <p class="proyecto__nombre">rituales domésticos</p>
+        <p class="proyecto__categoria">fotografía</p>
+      </div>
+    </a>
+    <a class="proyecto" data-categoria="ilustracion" href="#">
+      <div class="proyecto__info">
+        <p class="proyecto__nombre">bestiario nocturno</p>
+        <p class="proyecto__categoria">ilustración</p>
+      </div>
+    </a>
+    <a class="proyecto" data-categoria="ilustracion" href="#">
+      <div class="proyecto__info">
+        <p class="proyecto__nombre">guardianas</p>
+        <p class="proyecto__categoria">ilustración</p>
+      </div>
+    </a>
+    <a class="proyecto" data-categoria="interaccion-digital" href="#">
+      <div class="proyecto__info">
+        <p class="proyecto__nombre">ecosistema sensible</p>
+        <p class="proyecto__categoria">interacción digital</p>
+      </div>
+    </a>
+    <a class="proyecto" data-categoria="interaccion-digital" href="#">
+      <div class="proyecto__info">
+        <p class="proyecto__nombre">archivo vivo</p>
+        <p class="proyecto__categoria">interacción digital</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ SOBRE MÍ ============ -->
+<section id="sobre-mi" class="sobre-mi">
+  <h2 class="seccion__titulo">sobre mí</h2>
+  <p class="sobre-mi__texto cuerpo-thin">
+    soy catalina oyanedel, diseñadora que trabaja entre el diseño editorial,
+    la fotografía, la ilustración y la interacción digital. me interesa
+    construir relatos y experiencias a partir de lo que observo en la
+    naturaleza, lo mágico y los fenómenos sociales que me rodean.
+    <!-- Reemplaza este párrafo con tu propia bio -->
+  </p>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section id="contacto" class="contacto">
+  <h2 class="seccion__titulo">contacto</h2>
+  <div class="contacto__lista cuerpo-thin">
+    <a href="mailto:hola@catalinaoyanedel.com">hola@catalinaoyanedel.com</a>
+    <a href="https://instagram.com/" target="_blank" rel="noopener">instagram</a>
+    <a href="https://behance.net/" target="_blank" rel="noopener">behance</a>
+  </div>
+</section>
+
+<footer>catalina oyanedel — {AÑO}</footer>
+
+<script>
+  // Filtro de proyectos
+  const botones = document.querySelectorAll('.filtro');
+  const proyectos = document.querySelectorAll('.proyecto');
+
+  botones.forEach(boton => {
+    boton.addEventListener('click', () => {
+      botones.forEach(b => b.classList.remove('activo'));
+      boton.classList.add('activo');
+
+      const filtro = boton.dataset.filtro;
+      proyectos.forEach(proyecto => {
+        const coincide = filtro === 'todo' || proyecto.dataset.categoria === filtro;
+        proyecto.hidden = !coincide;
+      });
+    });
+  });
+
+  // Año automático en el footer
+  document.querySelector('footer').textContent =
+    document.querySelector('footer').textContent.replace('{AÑO}', new Date().getFullYear());
+</script>
+
+</body>
+</html>
