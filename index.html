@@ -79,14 +79,19 @@
 
   /* ============ HERO ============ */
   .hero{
-    padding:0 24px 96px;
+    padding:32px 24px 96px;
     text-align:center;
   }
 
-  .hero__ornamento{
-    max-width:900px;
-    margin:0 auto;
+  .hero__ornamento-wrap{
     width:100%;
+    overflow:hidden;
+  }
+
+  .hero__ornamento{
+    width:100%;
+    height:auto;
+    display:block;
     opacity:0.9;
   }
 
@@ -122,21 +127,9 @@
   .hero__intro{
     max-width:560px;
     margin:40px auto 0;
-    font-size:16px;
-    line-height:1.7;
+    font-size:21px;
+    line-height:1.6;
   }
-
-  .hero__cta{
-    display:inline-block;
-    margin-top:28px;
-    font-family:'PP Writer Thin Text', sans-serif;
-    font-size:15px;
-    letter-spacing:0.01em;
-    text-decoration:none;
-    border-bottom:1px solid var(--azul);
-    padding-bottom:2px;
-  }
-  .hero__cta:hover{ opacity:0.7; }
 
   /* ============ SECCIONES ============ */
   section{
@@ -148,7 +141,7 @@
   .seccion__titulo{
     font-family:'PP Writer', serif;
     color:var(--azul);
-    letter-spacing:-0.02em;
+    letter-spacing:0.02em;
     font-size:20px;
     margin:0 0 32px;
   }
@@ -280,26 +273,29 @@
 <body>
 
 <!-- ============ HERO ============ -->
-<header class="hero">
-  <img class="hero__ornamento" src="imagenes/ilus-vector.png" alt="">
-
-  <div class="hero__marca">
-    <div class="hero__estrella">
-      <img src="imagenes/estrella.png" alt="">
-    </div>
-    <div class="hero__titulos">
-      <p class="nombre">catalina oyanedel</p>
-      <p class="tagline">portafolio multidisciplinar.</p>
-    </div>
+<header>
+  <div class="hero__ornamento-wrap">
+    <img class="hero__ornamento" src="imagenes/ilus-vector.png" alt="">
   </div>
 
-  <p class="hero__intro">
-    en mis proyectos me inspiro principalmente desde la naturaleza, lo mágico
-    y los fenómenos sociales. parte importante de mis propuestas van de la
-    mano con la importancia del relato y la experiencia.
-  </p>
+  <div class="hero">
+    <div class="hero__marca">
+      <div class="hero__estrella">
+        <img src="imagenes/estrella.png" alt="">
+      </div>
+      <div class="hero__titulos">
+        <p class="nombre">catalina oyanedel</p>
+        <p class="tagline">portafolio multidisciplinar.</p>
+      </div>
+    </div>
 
-  <a class="hero__cta" href="#proyectos">conoce más en profundidad aquí !</a>
+    <p class="hero__intro">
+      en mis proyectos me inspiro principalmente desde la naturaleza, lo mágico
+      y los fenómenos sociales. parte importante de mis propuestas van de la
+      mano con la importancia del relato y la experiencia. conoce más en
+      profundidad aquí !
+    </p>
+  </div>
 </header>
 
 <!-- ============ PROYECTOS ============ -->
