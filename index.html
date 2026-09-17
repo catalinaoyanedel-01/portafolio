@@ -212,6 +212,12 @@
     overflow:hidden;
     position:relative;
     transition:transform 0.2s ease;
+    /* reset de <button> */
+    font:inherit;
+    text-align:left;
+    appearance:none;
+    cursor:pointer;
+    width:100%;
   }
   .proyecto:hover{ transform:translateY(-4px); }
 
@@ -239,6 +245,115 @@
   }
 
   .proyecto[hidden]{ display:none; }
+
+  /* ============ MODAL DE PROYECTO ============ */
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(255,255,255,0.88);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 20px;
+    z-index:1000;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.25s ease;
+  }
+  .modal-overlay.activo{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .modal{
+    position:relative;
+    background:var(--blanco);
+    border:1px solid var(--azul);
+    border-radius:18px;
+    width:100%;
+    max-width:900px;
+    max-height:85vh;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(39,29,219,0.15);
+  }
+
+  .modal__cerrar{
+    position:absolute;
+    top:14px;
+    right:14px;
+    z-index:2;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    border:1px solid var(--azul);
+    background:var(--blanco);
+    color:var(--azul);
+    font-size:20px;
+    line-height:1;
+    cursor:pointer;
+  }
+  .modal__cerrar:hover{ background:var(--linea-suave); }
+
+  .modal__contenido{
+    max-height:85vh;
+    overflow:hidden;
+  }
+
+  .modal__titulo{
+    padding:20px 56px 12px 24px;
+    margin:0;
+    font-size:15px;
+  }
+
+  /* -- tipo: imagen única -- */
+  .modal--imagen .modal__cuerpo{
+    padding:0 24px 24px;
+    display:flex;
+    justify-content:center;
+  }
+  .modal--imagen img{
+    max-height:65vh;
+    border-radius:10px;
+  }
+
+  /* -- tipo: galería (scroll horizontal, título fijo arriba) -- */
+  .modal--galeria .modal__titulo{
+    border-bottom:1px solid var(--linea-suave);
+  }
+  .modal--galeria .modal__cuerpo{
+    display:flex;
+    gap:16px;
+    overflow-x:auto;
+    padding:24px;
+    scroll-snap-type:x mandatory;
+  }
+  .modal--galeria .modal__cuerpo img{
+    height:60vh;
+    flex:0 0 auto;
+    border-radius:10px;
+    scroll-snap-align:start;
+  }
+
+  /* -- tipo: concepto (scroll vertical con texto e imágenes) -- */
+  .modal--concepto .modal__cuerpo{
+    padding:0 24px 32px;
+    max-height:calc(85vh - 60px);
+    overflow-y:auto;
+  }
+  .modal--concepto .modal__cuerpo img{
+    width:100%;
+    border-radius:10px;
+    margin-bottom:20px;
+  }
+  .modal--concepto .modal__cuerpo p{
+    font-size:16px;
+    line-height:1.7;
+    margin:0 0 20px;
+  }
+
+  @media (max-width:600px){
+    .modal--galeria .modal__cuerpo img{ height:40vh; }
+  }
 
   /* ============ CONTACTO ============ */
   .contacto{
@@ -314,57 +429,65 @@
   </div>
 
   <div class="grilla" id="grilla-proyectos">
-    <!-- Reemplaza título, categoría, imagen y enlace de cada proyecto -->
-    <a class="proyecto" data-categoria="diseno-editorial" href="#">
+    <!-- data-id conecta cada tarjeta con su contenido en proyectosData (al final del archivo, dentro del <script>) -->
+    <button type="button" class="proyecto" data-categoria="diseno-editorial" data-id="rios-subterraneos">
       <div class="proyecto__info">
         <p class="proyecto__nombre">ríos subterráneos</p>
         <p class="proyecto__categoria">diseño editorial</p>
       </div>
-    </a>
-    <a class="proyecto" data-categoria="diseno-editorial" href="#">
+    </button>
+    <button type="button" class="proyecto" data-categoria="diseno-editorial" data-id="cuerpos-comunes">
       <div class="proyecto__info">
         <p class="proyecto__nombre">cuerpos comunes</p>
         <p class="proyecto__categoria">diseño editorial</p>
       </div>
-    </a>
-    <a class="proyecto" data-categoria="fotografia" href="#">
+    </button>
+    <button type="button" class="proyecto" data-categoria="fotografia" data-id="marea-baja">
       <div class="proyecto__info">
         <p class="proyecto__nombre">marea baja</p>
         <p class="proyecto__categoria">fotografía</p>
       </div>
-    </a>
-    <a class="proyecto" data-categoria="fotografia" href="#">
+    </button>
+    <button type="button" class="proyecto" data-categoria="fotografia" data-id="rituales-domesticos">
       <div class="proyecto__info">
         <p class="proyecto__nombre">rituales domésticos</p>
         <p class="proyecto__categoria">fotografía</p>
       </div>
-    </a>
-    <a class="proyecto" data-categoria="ilustracion" href="#">
+    </button>
+    <button type="button" class="proyecto" data-categoria="ilustracion" data-id="bestiario-nocturno">
       <div class="proyecto__info">
         <p class="proyecto__nombre">bestiario nocturno</p>
         <p class="proyecto__categoria">ilustración</p>
       </div>
-    </a>
-    <a class="proyecto" data-categoria="ilustracion" href="#">
+    </button>
+    <button type="button" class="proyecto" data-categoria="ilustracion" data-id="guardianas">
       <div class="proyecto__info">
         <p class="proyecto__nombre">guardianas</p>
         <p class="proyecto__categoria">ilustración</p>
       </div>
-    </a>
-    <a class="proyecto" data-categoria="interaccion-digital" href="#">
+    </button>
+    <button type="button" class="proyecto" data-categoria="interaccion-digital" data-id="ecosistema-sensible">
       <div class="proyecto__info">
         <p class="proyecto__nombre">ecosistema sensible</p>
         <p class="proyecto__categoria">interacción digital</p>
       </div>
-    </a>
-    <a class="proyecto" data-categoria="interaccion-digital" href="#">
+    </button>
+    <button type="button" class="proyecto" data-categoria="interaccion-digital" data-id="archivo-vivo">
       <div class="proyecto__info">
         <p class="proyecto__nombre">archivo vivo</p>
         <p class="proyecto__categoria">interacción digital</p>
       </div>
-    </a>
+    </button>
   </div>
 </section>
+
+<!-- ============ MODAL DE PROYECTO ============ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <button type="button" class="modal__cerrar" id="modal-cerrar" aria-label="Cerrar">×</button>
+    <div class="modal__contenido" id="modal-contenido"></div>
+  </div>
+</div>
 
 
 <!-- ============ CONTACTO ============ -->
@@ -399,6 +522,114 @@
   // Año automático en el footer
   document.querySelector('footer').textContent =
     document.querySelector('footer').textContent.replace('{AÑO}', new Date().getFullYear());
+
+  // ============ MODAL DE PROYECTO ============
+  // Reemplaza cada entrada con el contenido real de tu proyecto.
+  // tipo: 'imagen' (una sola imagen), 'galeria' (varias, scroll lateral)
+  // o 'concepto' (texto + imágenes, scroll vertical).
+  const proyectosData = {
+    'rios-subterraneos': {
+      tipo: 'concepto',
+      titulo: 'ríos subterráneos — diseño editorial',
+      imagenes: ['imagenes/proyectos/rios-1.jpg'],
+      texto: [
+        'Reemplaza este párrafo con la descripción de tu proyecto.',
+        'Puedes agregar tantos párrafos e imágenes como necesites; el modal crece y se puede recorrer con scroll vertical.'
+      ]
+    },
+    'cuerpos-comunes': {
+      tipo: 'galeria',
+      titulo: 'cuerpos comunes — diseño editorial',
+      imagenes: ['imagenes/proyectos/cuerpos-1.jpg', 'imagenes/proyectos/cuerpos-2.jpg', 'imagenes/proyectos/cuerpos-3.jpg']
+    },
+    'marea-baja': {
+      tipo: 'galeria',
+      titulo: 'marea baja — fotografía',
+      imagenes: ['imagenes/proyectos/marea-1.jpg', 'imagenes/proyectos/marea-2.jpg']
+    },
+    'rituales-domesticos': {
+      tipo: 'imagen',
+      titulo: 'rituales domésticos — fotografía',
+      imagenes: ['imagenes/proyectos/rituales-1.jpg']
+    },
+    'bestiario-nocturno': {
+      tipo: 'imagen',
+      titulo: 'bestiario nocturno — ilustración',
+      imagenes: ['imagenes/proyectos/bestiario-1.jpg']
+    },
+    'guardianas': {
+      tipo: 'galeria',
+      titulo: 'guardianas — ilustración',
+      imagenes: ['imagenes/proyectos/guardianas-1.jpg', 'imagenes/proyectos/guardianas-2.jpg']
+    },
+    'ecosistema-sensible': {
+      tipo: 'concepto',
+      titulo: 'ecosistema sensible — interacción digital',
+      imagenes: ['imagenes/proyectos/ecosistema-1.jpg'],
+      texto: [
+        'Reemplaza este párrafo con la descripción de tu proyecto.'
+      ]
+    },
+    'archivo-vivo': {
+      tipo: 'imagen',
+      titulo: 'archivo vivo — interacción digital',
+      imagenes: ['imagenes/proyectos/archivo-1.jpg']
+    }
+  };
+
+  const overlay = document.getElementById('modal-overlay');
+  const modal = document.getElementById('modal');
+  const modalContenido = document.getElementById('modal-contenido');
+  const modalCerrar = document.getElementById('modal-cerrar');
+
+  function abrirModal(id){
+    const data = proyectosData[id];
+    if (!data) return;
+
+    modal.className = 'modal modal--' + data.tipo;
+    let html = `<p class="modal__titulo mono-italica">${data.titulo}</p>`;
+
+    if (data.tipo === 'imagen'){
+      html += `<div class="modal__cuerpo"><img src="${data.imagenes[0]}" alt=""></div>`;
+    }
+
+    if (data.tipo === 'galeria'){
+      html += '<div class="modal__cuerpo">' +
+        data.imagenes.map(src => `<img src="${src}" alt="">`).join('') +
+        '</div>';
+    }
+
+    if (data.tipo === 'concepto'){
+      const bloques = [];
+      const maxLen = Math.max(data.imagenes.length, data.texto.length);
+      for (let i = 0; i < maxLen; i++){
+        if (data.imagenes[i]) bloques.push(`<img src="${data.imagenes[i]}" alt="">`);
+        if (data.texto[i]) bloques.push(`<p>${data.texto[i]}</p>`);
+      }
+      html += `<div class="modal__cuerpo">${bloques.join('')}</div>`;
+    }
+
+    modalContenido.innerHTML = html;
+    overlay.classList.add('activo');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function cerrarModal(){
+    overlay.classList.remove('activo');
+    document.body.style.overflow = '';
+  }
+
+  proyectos.forEach(proyecto => {
+    proyecto.addEventListener('click', () => abrirModal(proyecto.dataset.id));
+  });
+
+  modalCerrar.addEventListener('click', cerrarModal);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) cerrarModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') cerrarModal();
+  });
 </script>
 
 </body>
