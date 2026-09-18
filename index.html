@@ -89,14 +89,15 @@
     overflow:hidden;
     display:flex;
     justify-content:center;
+    align-items:flex-start;
   }
 
   .hero__ornamento{
-    width:auto;
-    max-width:100%;
-    height:100%;
-    object-fit:contain;
     display:block;
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:100%;
     opacity:0.9;
   }
 
@@ -266,14 +267,27 @@
   }
 
   .modal{
-    position:relative;
-    background:var(--blanco);
-    border:1px solid var(--azul);
-    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
     width:100%;
     max-width:900px;
     max-height:85vh;
-    overflow:hidden;
+  }
+
+  .modal__titulo{
+    flex:0 0 auto;
+    background:var(--azul);
+    color:var(--blanco);
+    border-radius:999px;
+    padding:10px 22px;
+    margin:0 0 8px;
+    font-size:15px;
+  }
+
+  .modal__caja{
+    position:relative;
+    width:100%;
     box-shadow:0 20px 60px rgba(39,29,219,0.15);
   }
 
@@ -281,7 +295,7 @@
     position:absolute;
     top:14px;
     right:14px;
-    z-index:2;
+    z-index:3;
     width:36px;
     height:36px;
     border-radius:50%;
@@ -295,14 +309,12 @@
   .modal__cerrar:hover{ background:var(--linea-suave); }
 
   .modal__contenido{
+    background:var(--blanco);
+    border:1px solid var(--azul);
+    border-radius:18px;
     max-height:85vh;
     overflow:hidden;
-  }
-
-  .modal__titulo{
-    padding:20px 56px 12px 24px;
-    margin:0;
-    font-size:15px;
+    padding-top:14px;
   }
 
   /* -- tipo: imagen única -- */
@@ -317,9 +329,6 @@
   }
 
   /* -- tipo: galería (scroll horizontal, título fijo arriba) -- */
-  .modal--galeria .modal__titulo{
-    border-bottom:1px solid var(--linea-suave);
-  }
   .modal--galeria .modal__cuerpo{
     display:flex;
     gap:16px;
@@ -484,8 +493,11 @@
 <!-- ============ MODAL DE PROYECTO ============ -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal" id="modal">
-    <button type="button" class="modal__cerrar" id="modal-cerrar" aria-label="Cerrar">×</button>
-    <div class="modal__contenido" id="modal-contenido"></div>
+    <p class="modal__titulo mono-italica" id="modal-titulo"></p>
+    <div class="modal__caja">
+      <button type="button" class="modal__cerrar" id="modal-cerrar" aria-label="Cerrar">×</button>
+      <div class="modal__contenido" id="modal-contenido"></div>
+    </div>
   </div>
 </div>
 
@@ -579,6 +591,7 @@
 
   const overlay = document.getElementById('modal-overlay');
   const modal = document.getElementById('modal');
+  const modalTitulo = document.getElementById('modal-titulo');
   const modalContenido = document.getElementById('modal-contenido');
   const modalCerrar = document.getElementById('modal-cerrar');
 
@@ -587,7 +600,8 @@
     if (!data) return;
 
     modal.className = 'modal modal--' + data.tipo;
-    let html = `<p class="modal__titulo mono-italica">${data.titulo}</p>`;
+    modalTitulo.textContent = data.titulo;
+    let html = '';
 
     if (data.tipo === 'imagen'){
       html += `<div class="modal__cuerpo"><img src="${data.imagenes[0]}" alt=""></div>`;
