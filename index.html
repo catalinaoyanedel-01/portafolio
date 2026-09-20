@@ -443,83 +443,145 @@
   </div>
 
   <div class="grilla" id="grilla-proyectos">
-    <!-- data-id conecta cada tarjeta con su contenido en proyectosData (al final del archivo, dentro del <script>) -->
-    <button type="button" class="proyecto" data-categoria="diseno-editorial" data-id="rios-subterraneos">
-      <div class="proyecto__info">
-        <p class="proyecto__nombre">ríos subterráneos</p>
-        <p class="proyecto__categoria">diseño editorial</p>
-      </div>
-    </button>
-    <button type="button" class="proyecto" data-categoria="diseno-editorial" data-id="cuerpos-comunes">
-      <div class="proyecto__info">
-        <p class="proyecto__nombre">cuerpos comunes</p>
-        <p class="proyecto__categoria">diseño editorial</p>
-      </div>
-    </button>
-    <button type="button" class="proyecto" data-categoria="fotografia" data-id="marea-baja">
-      <div class="proyecto__info">
-        <p class="proyecto__nombre">marea baja</p>
-        <p class="proyecto__categoria">fotografía</p>
-      </div>
-    </button>
-    <button type="button" class="proyecto" data-categoria="fotografia" data-id="rituales-domesticos">
-      <div class="proyecto__info">
-        <p class="proyecto__nombre">rituales domésticos</p>
-        <p class="proyecto__categoria">fotografía</p>
-      </div>
-    </button>
-    <button type="button" class="proyecto" data-categoria="ilustracion" data-id="bestiario-nocturno">
-      <div class="proyecto__info">
-        <p class="proyecto__nombre">bestiario nocturno</p>
-        <p class="proyecto__categoria">ilustración</p>
-      </div>
-    </button>
-    <button type="button" class="proyecto" data-categoria="ilustracion" data-id="guardianas">
-      <div class="proyecto__info">
-        <p class="proyecto__nombre">guardianas</p>
-        <p class="proyecto__categoria">ilustración</p>
-      </div>
-    </button>
-    <button type="button" class="proyecto" data-categoria="interaccion-digital" data-id="ecosistema-sensible">
-      <div class="proyecto__info">
-        <p class="proyecto__nombre">ecosistema sensible</p>
-        <p class="proyecto__categoria">interacción digital</p>
-      </div>
-    </button>
-    <button type="button" class="proyecto" data-categoria="interaccion-digital" data-id="archivo-vivo">
-      <div class="proyecto__info">
-        <p class="proyecto__nombre">archivo vivo</p>
-        <p class="proyecto__categoria">interacción digital</p>
-      </div>
-    </button>
-  </div>
-</section>
+    <!-- Las tarjetas se generan solas desde proyectosData (al final del archivo, dentro del <script>
+  // ============ DATOS DE PROYECTOS ============
+  // Cada proyecto se define UNA sola vez aquí. La grilla y el modal se arman desde estos datos.
+  //   id (la clave)   : sin espacios ni tildes, único
+  //   orden           : posición en la grilla (cámbialo para reordenar)
+  //   categoria       : debe coincidir con un data-filtro (diseno-editorial, fotografia, ilustracion, interaccion-digital)
+  //   nombre          : texto de la tarjeta
+  //   categoriaTexto  : etiqueta bajo el nombre
+  //   anio            : opcional, por si luego ordenas por fecha
+  //   portada         : imagen de la tarjeta (si va vacío, se ve el fondo gris)
+  //   tipo            : 'imagen' (una sola) | 'galeria' (varias, scroll lateral) | 'concepto' (texto + imágenes, scroll vertical)
+  //   titulo          : título del modal
+  //   imagenes        : lista de imágenes del modal
+  //   texto           : lista de párrafos (solo para 'concepto')
+  const proyectosData = {
+    'sin-titulo': {
+      orden: 1,
+      categoria: 'ilustracion',
+      nombre: 'sin título',
+      categoriaTexto: 'ilustración',
+      anio: 2025,
+      portada: 'imagenes/proyectos/manos.jpg',
+      tipo: 'imagen',
+      titulo: 'sin título — ilustración',
+      imagenes: ['imagenes/proyectos/manos.jpg']
+    },
+    'rios-subterraneos': {
+      orden: 2,
+      categoria: 'diseno-editorial',
+      nombre: 'ríos subterráneos',
+      categoriaTexto: 'diseño editorial',
+      anio: null,
+      portada: '',
+      tipo: 'concepto',
+      titulo: 'ríos subterráneos — diseño editorial',
+      imagenes: ['imagenes/proyectos/rios-1.jpg'],
+      texto: [
+        'Reemplaza este párrafo con la descripción de tu proyecto.',
+        'Puedes agregar tantos párrafos e imágenes como necesites; el modal crece y se puede recorrer con scroll vertical.'
+      ]
+    },
+    'cuerpos-comunes': {
+      orden: 3,
+      categoria: 'diseno-editorial',
+      nombre: 'cuerpos comunes',
+      categoriaTexto: 'diseño editorial',
+      anio: null,
+      portada: '',
+      tipo: 'galeria',
+      titulo: 'cuerpos comunes — diseño editorial',
+      imagenes: ['imagenes/proyectos/cuerpos-1.jpg', 'imagenes/proyectos/cuerpos-2.jpg', 'imagenes/proyectos/cuerpos-3.jpg']
+    },
+    'marea-baja': {
+      orden: 4,
+      categoria: 'fotografia',
+      nombre: 'marea baja',
+      categoriaTexto: 'fotografía',
+      anio: null,
+      portada: '',
+      tipo: 'galeria',
+      titulo: 'marea baja — fotografía',
+      imagenes: ['imagenes/proyectos/marea-1.jpg', 'imagenes/proyectos/marea-2.jpg']
+    },
+    'rituales-domesticos': {
+      orden: 5,
+      categoria: 'fotografia',
+      nombre: 'rituales domésticos',
+      categoriaTexto: 'fotografía',
+      anio: null,
+      portada: '',
+      tipo: 'imagen',
+      titulo: 'rituales domésticos — fotografía',
+      imagenes: ['imagenes/proyectos/rituales-1.jpg']
+    },
+    'bestiario-nocturno': {
+      orden: 6,
+      categoria: 'ilustracion',
+      nombre: 'bestiario nocturno',
+      categoriaTexto: 'ilustración',
+      anio: null,
+      portada: '',
+      tipo: 'imagen',
+      titulo: 'bestiario nocturno — ilustración',
+      imagenes: ['imagenes/proyectos/bestiario-1.jpg']
+    },
+    'guardianas': {
+      orden: 7,
+      categoria: 'ilustracion',
+      nombre: 'guardianas',
+      categoriaTexto: 'ilustración',
+      anio: null,
+      portada: '',
+      tipo: 'galeria',
+      titulo: 'guardianas — ilustración',
+      imagenes: ['imagenes/proyectos/guardianas-1.jpg', 'imagenes/proyectos/guardianas-2.jpg']
+    },
+    'ecosistema-sensible': {
+      orden: 8,
+      categoria: 'interaccion-digital',
+      nombre: 'ecosistema sensible',
+      categoriaTexto: 'interacción digital',
+      anio: null,
+      portada: '',
+      tipo: 'concepto',
+      titulo: 'ecosistema sensible — interacción digital',
+      imagenes: ['imagenes/proyectos/ecosistema-1.jpg'],
+      texto: [
+        'Reemplaza este párrafo con la descripción de tu proyecto.'
+      ]
+    },
+    'archivo-vivo': {
+      orden: 9,
+      categoria: 'interaccion-digital',
+      nombre: 'archivo vivo',
+      categoriaTexto: 'interacción digital',
+      anio: null,
+      portada: '',
+      tipo: 'imagen',
+      titulo: 'archivo vivo — interacción digital',
+      imagenes: ['imagenes/proyectos/archivo-1.jpg']
+    }
+  };
 
-<!-- ============ MODAL DE PROYECTO ============ -->
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal" id="modal">
-    <p class="modal__titulo mono-italica" id="modal-titulo"></p>
-    <div class="modal__caja">
-      <button type="button" class="modal__cerrar" id="modal-cerrar" aria-label="Cerrar">×</button>
-      <div class="modal__contenido" id="modal-contenido"></div>
-    </div>
-  </div>
-</div>
+  // ============ GENERAR TARJETAS DE LA GRILLA ============
+  function renderProyectos(){
+    const grilla = document.getElementById('grilla-proyectos');
+    grilla.innerHTML = Object.entries(proyectosData)
+      .sort((a, b) => a[1].orden - b[1].orden)
+      .map(([id, p]) => `
+        <button type="button" class="proyecto" data-categoria="${p.categoria}" data-id="${id}"${p.portada ? ` style="background:url('${p.portada}') center/cover"` : ''}>
+          <div class="proyecto__info">
+            <p class="proyecto__nombre">${p.nombre}</p>
+            <p class="proyecto__categoria">${p.categoriaTexto}</p>
+          </div>
+        </button>`).join('');
+  }
+  renderProyectos();
 
-
-<!-- ============ CONTACTO ============ -->
-<section id="contacto" class="contacto">
-  <h2 class="seccion__titulo">contacto</h2>
-  <div class="contacto__lista cuerpo-thin">
-    <a href="mailto:catalinaoyanedel3@gmail.com">catalinaoyanedel3@gmail.com</a>
-    <a href="https://www.instagram.com/catalinamiaaaa/" target="_blank" rel="noopener">instagram</a>
-  </div>
-</section>
-
-<footer>catalina oyanedel — {AÑO}</footer>
-
-<script>
-  // Filtro de proyectos
+  // ============ FILTRO DE PROYECTOS ============
   const botones = document.querySelectorAll('.filtro');
   const proyectos = document.querySelectorAll('.proyecto');
 
@@ -541,59 +603,6 @@
     document.querySelector('footer').textContent.replace('{AÑO}', new Date().getFullYear());
 
   // ============ MODAL DE PROYECTO ============
-  // Reemplaza cada entrada con el contenido real de tu proyecto.
-  // tipo: 'imagen' (una sola imagen), 'galeria' (varias, scroll lateral)
-  // o 'concepto' (texto + imágenes, scroll vertical).
-  const proyectosData = {
-    'rios-subterraneos': {
-      tipo: 'concepto',
-      titulo: 'ríos subterráneos — diseño editorial',
-      imagenes: ['imagenes/proyectos/rios-1.jpg'],
-      texto: [
-        'Reemplaza este párrafo con la descripción de tu proyecto.',
-        'Puedes agregar tantos párrafos e imágenes como necesites; el modal crece y se puede recorrer con scroll vertical.'
-      ]
-    },
-    'cuerpos-comunes': {
-      tipo: 'galeria',
-      titulo: 'cuerpos comunes — diseño editorial',
-      imagenes: ['imagenes/proyectos/cuerpos-1.jpg', 'imagenes/proyectos/cuerpos-2.jpg', 'imagenes/proyectos/cuerpos-3.jpg']
-    },
-    'marea-baja': {
-      tipo: 'galeria',
-      titulo: 'marea baja — fotografía',
-      imagenes: ['imagenes/proyectos/marea-1.jpg', 'imagenes/proyectos/marea-2.jpg']
-    },
-    'rituales-domesticos': {
-      tipo: 'imagen',
-      titulo: 'rituales domésticos — fotografía',
-      imagenes: ['imagenes/proyectos/rituales-1.jpg']
-    },
-    'bestiario-nocturno': {
-      tipo: 'imagen',
-      titulo: 'bestiario nocturno — ilustración',
-      imagenes: ['imagenes/proyectos/bestiario-1.jpg']
-    },
-    'guardianas': {
-      tipo: 'galeria',
-      titulo: 'guardianas — ilustración',
-      imagenes: ['imagenes/proyectos/guardianas-1.jpg', 'imagenes/proyectos/guardianas-2.jpg']
-    },
-    'ecosistema-sensible': {
-      tipo: 'concepto',
-      titulo: 'ecosistema sensible — interacción digital',
-      imagenes: ['imagenes/proyectos/ecosistema-1.jpg'],
-      texto: [
-        'Reemplaza este párrafo con la descripción de tu proyecto.'
-      ]
-    },
-    'archivo-vivo': {
-      tipo: 'imagen',
-      titulo: 'archivo vivo — interacción digital',
-      imagenes: ['imagenes/proyectos/archivo-1.jpg']
-    }
-  };
-
   const overlay = document.getElementById('modal-overlay');
   const modal = document.getElementById('modal');
   const modalTitulo = document.getElementById('modal-titulo');
@@ -619,11 +628,12 @@
     }
 
     if (data.tipo === 'concepto'){
+      const textos = data.texto || [];
       const bloques = [];
-      const maxLen = Math.max(data.imagenes.length, data.texto.length);
+      const maxLen = Math.max(data.imagenes.length, textos.length);
       for (let i = 0; i < maxLen; i++){
         if (data.imagenes[i]) bloques.push(`<img src="${data.imagenes[i]}" alt="">`);
-        if (data.texto[i]) bloques.push(`<p>${data.texto[i]}</p>`);
+        if (textos[i]) bloques.push(`<p>${textos[i]}</p>`);
       }
       html += `<div class="modal__cuerpo">${bloques.join('')}</div>`;
     }
