@@ -121,7 +121,7 @@
     position:relative;
     top:-4px;
   }
-  .hero__estrella img{ width:80%; }
+  .hero__estrella img{ width:60%; }
 
   .hero__titulos{ text-align:left; }
 
@@ -436,7 +436,7 @@
 
   <div class="filtros">
     <button class="filtro activo" data-filtro="todo">todo</button>
-    <button class="filtro" data-filtro="diseno-editorial">diseño editorial</button>
+    <button class="filtro" data-filtro="diseno-grafico">diseño gráfico</button>
     <button class="filtro" data-filtro="fotografia">fotografía</button>
     <button class="filtro" data-filtro="ilustracion">ilustración</button>
     <button class="filtro" data-filtro="interaccion-digital">interacción digital</button>
@@ -476,121 +476,120 @@
   // Cada proyecto se define UNA sola vez aquí. La grilla y el modal se arman desde estos datos.
   //   id (la clave)   : sin espacios ni tildes, único
   //   orden           : posición en la grilla (cámbialo para reordenar)
-  //   categoria       : debe coincidir con un data-filtro (diseno-editorial, fotografia, ilustracion, interaccion-digital)
+  //   categorias      : lista de áreas. Un trabajo puede tener una o varias, ej: ['ilustracion', 'diseno-grafico']
+  //                     (deben coincidir con un data-filtro y con la lista nombresCategorias de abajo)
   //   nombre          : texto de la tarjeta
-  //   categoriaTexto  : etiqueta bajo el nombre
   //   anio            : opcional, por si luego ordenas por fecha
-  //   portada         : imagen de la tarjeta (si va vacío, se ve el fondo gris)
+  //   portada         : nombre del archivo de la tarjeta (si va vacío, se ve el fondo gris)
   //   tipo            : 'imagen' (una sola) | 'galeria' (varias, scroll lateral) | 'concepto' (texto + imágenes, scroll vertical)
   //   titulo          : título del modal
-  //   imagenes        : lista de imágenes del modal
+  //   imagenes        : lista de nombres de archivo del modal
   //   texto           : lista de párrafos (solo para 'concepto')
+
+  // Carpeta donde están las imágenes. En cada ficha escribe solo el nombre del archivo (ej: 'ilustracion-flor.webp');
+  // si un nombre ya trae una ruta con '/', se respeta tal cual.
+  const carpetaImagenes = 'imagenes/proyectos/';
+  const ruta = src => (!src || src.includes('/')) ? src : carpetaImagenes + src;
+
+  // Cómo se escribe cada área en la tarjeta (la etiqueta se arma sola desde 'categorias')
+  const nombresCategorias = {
+    'diseno-grafico': 'diseño gráfico',
+    'fotografia': 'fotografía',
+    'ilustracion': 'ilustración',
+    'interaccion-digital': 'interacción digital'
+  };
+
   const proyectosData = {
-    'sin-titulo': {
+    // ---------- ILUSTRACIÓN ----------
+    'una-carta-para-ti': {
       orden: 1,
-      categoria: 'ilustracion',
-      nombre: 'sin título',
-      categoriaTexto: 'ilustración',
+      categorias: ['ilustracion'],
+      nombre: 'una carta para ti',
       anio: 2025,
-      portada: 'imagenes/proyectos/manos.jpg',
+      portada: 'ilustracion-cartadeamor.webp',
       tipo: 'imagen',
-      titulo: 'sin título — ilustración',
-      imagenes: ['imagenes/proyectos/manos.jpg']
+      titulo: 'una carta para ti',
+      imagenes: ['ilustracion-cartadeamor.webp']
     },
-    'rios-subterraneos': {
+    'composicion-ornamental': {
       orden: 2,
-      categoria: 'diseno-editorial',
-      nombre: 'ríos subterráneos',
-      categoriaTexto: 'diseño editorial',
-      anio: null,
-      portada: '',
-      tipo: 'concepto',
-      titulo: 'ríos subterráneos — diseño editorial',
-      imagenes: ['imagenes/proyectos/rios-1.jpg'],
-      texto: [
-        'Reemplaza este párrafo con la descripción de tu proyecto.',
-        'Puedes agregar tantos párrafos e imágenes como necesites; el modal crece y se puede recorrer con scroll vertical.'
-      ]
+      categorias: ['ilustracion'],
+      nombre: 'composición ornamental',
+      anio: 2025,
+      portada: 'ilustracion-compisicion.webp',
+      tipo: 'imagen',
+      titulo: 'composición ornamental',
+      imagenes: ['ilustracion-compisicion.webp']
     },
-    'cuerpos-comunes': {
+    'conoce-a-tu-fauna-nativa': {
       orden: 3,
-      categoria: 'diseno-editorial',
-      nombre: 'cuerpos comunes',
-      categoriaTexto: 'diseño editorial',
-      anio: null,
-      portada: '',
-      tipo: 'galeria',
-      titulo: 'cuerpos comunes — diseño editorial',
-      imagenes: ['imagenes/proyectos/cuerpos-1.jpg', 'imagenes/proyectos/cuerpos-2.jpg', 'imagenes/proyectos/cuerpos-3.jpg']
+      categorias: ['ilustracion', 'diseno-grafico'],
+      nombre: 'fauna nativa: gato de geoffroy',
+      anio: 2025,
+      portada: 'ilustracion-conoceatufaunanativa.webp',
+      tipo: 'imagen',
+      titulo: 'conoce a tu fauna nativa: gato de geoffroy',
+      imagenes: ['ilustracion-conoceatufaunanativa.webp']
     },
-    'marea-baja': {
+    'espirales': {
       orden: 4,
-      categoria: 'fotografia',
-      nombre: 'marea baja',
-      categoriaTexto: 'fotografía',
-      anio: null,
-      portada: '',
-      tipo: 'galeria',
-      titulo: 'marea baja — fotografía',
-      imagenes: ['imagenes/proyectos/marea-1.jpg', 'imagenes/proyectos/marea-2.jpg']
+      categorias: ['ilustracion'],
+      nombre: 'soñar espiral',
+      anio: 2025,
+      portada: 'ilustracion-espirales.webp',
+      tipo: 'imagen',
+      titulo: 'soñar espiral',
+      imagenes: ['ilustracion-espirales.webp']
     },
-    'rituales-domesticos': {
+    'portal-floral': {
       orden: 5,
-      categoria: 'fotografia',
-      nombre: 'rituales domésticos',
-      categoriaTexto: 'fotografía',
-      anio: null,
-      portada: '',
+      categorias: ['ilustracion'],
+      nombre: 'portal floral',
+      anio: 2025,
+      portada: 'ilustracion-flor.webp',
       tipo: 'imagen',
-      titulo: 'rituales domésticos — fotografía',
-      imagenes: ['imagenes/proyectos/rituales-1.jpg']
+      titulo: 'portal floral',
+      imagenes: ['ilustracion-flor.webp']
     },
-    'bestiario-nocturno': {
+    'hazme-brillar': {
       orden: 6,
-      categoria: 'ilustracion',
-      nombre: 'bestiario nocturno',
-      categoriaTexto: 'ilustración',
-      anio: null,
-      portada: '',
+      categorias: ['ilustracion'],
+      nombre: 'hazme brillar',
+      anio: 2025,
+      portada: 'ilustracion-manos.webp',
       tipo: 'imagen',
-      titulo: 'bestiario nocturno — ilustración',
-      imagenes: ['imagenes/proyectos/bestiario-1.jpg']
+      titulo: 'hazme brillar',
+      imagenes: ['ilustracion-manos.webp']
     },
-    'guardianas': {
+    'orquidea-gavilea': {
       orden: 7,
-      categoria: 'ilustracion',
-      nombre: 'guardianas',
-      categoriaTexto: 'ilustración',
-      anio: null,
-      portada: '',
-      tipo: 'galeria',
-      titulo: 'guardianas — ilustración',
-      imagenes: ['imagenes/proyectos/guardianas-1.jpg', 'imagenes/proyectos/guardianas-2.jpg']
-    },
-    'ecosistema-sensible': {
-      orden: 8,
-      categoria: 'interaccion-digital',
-      nombre: 'ecosistema sensible',
-      categoriaTexto: 'interacción digital',
-      anio: null,
-      portada: '',
-      tipo: 'concepto',
-      titulo: 'ecosistema sensible — interacción digital',
-      imagenes: ['imagenes/proyectos/ecosistema-1.jpg'],
-      texto: [
-        'Reemplaza este párrafo con la descripción de tu proyecto.'
-      ]
-    },
-    'archivo-vivo': {
-      orden: 9,
-      categoria: 'interaccion-digital',
-      nombre: 'archivo vivo',
-      categoriaTexto: 'interacción digital',
-      anio: null,
-      portada: '',
+      categorias: ['ilustracion'],
+      nombre: 'orquídea gavilea',
+      anio: 2025,
+      portada: 'ilustracion-orquidea.webp',
       tipo: 'imagen',
-      titulo: 'archivo vivo — interacción digital',
-      imagenes: ['imagenes/proyectos/archivo-1.jpg']
+      titulo: 'orquídea gavilea',
+      imagenes: ['ilustracion-orquidea.webp']
+    },
+    'pinguino-de-humboldt': {
+      orden: 8,
+      categorias: ['ilustracion'],
+      nombre: 'pingüino de humboldt',
+      anio: 2025,
+      portada: 'ilustracion-pinguinodehumboldt.webp',
+      tipo: 'imagen',
+      titulo: 'pingüino de humboldt',
+      imagenes: ['ilustracion-pinguinodehumboldt.webp']
+    },
+    'martin-pescador': {
+      orden: 9,
+      categorias: ['ilustracion'],
+      nombre: 'martín pescador',
+      anio: 2025,
+      portada: 'ilustracion-martinpescador.webp',
+      tipo: 'imagen',
+      titulo: 'martín pescador',
+      imagenes: ['ilustracion-martinpescador.webp']
     }
   };
 
@@ -600,10 +599,10 @@
     grilla.innerHTML = Object.entries(proyectosData)
       .sort((a, b) => a[1].orden - b[1].orden)
       .map(([id, p]) => `
-        <button type="button" class="proyecto" data-categoria="${p.categoria}" data-id="${id}"${p.portada ? ` style="background:url('${p.portada}') center/cover"` : ''}>
+        <button type="button" class="proyecto" data-categorias="${p.categorias.join(' ')}" data-id="${id}"${p.portada ? ` style="background:url('${ruta(p.portada)}') center/cover"` : ''}>
           <div class="proyecto__info">
             <p class="proyecto__nombre">${p.nombre}</p>
-            <p class="proyecto__categoria">${p.categoriaTexto}</p>
+            <p class="proyecto__categoria">${p.categorias.map(c => nombresCategorias[c] || c).join(' · ')}</p>
           </div>
         </button>`).join('');
   }
@@ -620,7 +619,7 @@
 
       const filtro = boton.dataset.filtro;
       proyectos.forEach(proyecto => {
-        const coincide = filtro === 'todo' || proyecto.dataset.categoria === filtro;
+        const coincide = filtro === 'todo' || proyecto.dataset.categorias.split(' ').includes(filtro);
         proyecto.hidden = !coincide;
       });
     });
@@ -646,12 +645,12 @@
     let html = '';
 
     if (data.tipo === 'imagen'){
-      html += `<div class="modal__cuerpo"><img src="${data.imagenes[0]}" alt=""></div>`;
+      html += `<div class="modal__cuerpo"><img src="${ruta(data.imagenes[0])}" alt=""></div>`;
     }
 
     if (data.tipo === 'galeria'){
       html += '<div class="modal__cuerpo">' +
-        data.imagenes.map(src => `<img src="${src}" alt="">`).join('') +
+        data.imagenes.map(src => `<img src="${ruta(src)}" alt="">`).join('') +
         '</div>';
     }
 
@@ -660,7 +659,7 @@
       const bloques = [];
       const maxLen = Math.max(data.imagenes.length, textos.length);
       for (let i = 0; i < maxLen; i++){
-        if (data.imagenes[i]) bloques.push(`<img src="${data.imagenes[i]}" alt="">`);
+        if (data.imagenes[i]) bloques.push(`<img src="${ruta(data.imagenes[i])}" alt="">`);
         if (textos[i]) bloques.push(`<p>${textos[i]}</p>`);
       }
       html += `<div class="modal__cuerpo">${bloques.join('')}</div>`;
