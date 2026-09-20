@@ -121,7 +121,7 @@
     position:relative;
     top:-4px;
   }
-  .hero__estrella img{ width:60%; }
+  .hero__estrella img{ width:80%; }
 
   .hero__titulos{ text-align:left; }
 
@@ -284,15 +284,17 @@
     flex:0 0 auto;
     background:var(--azul);
     color:var(--blanco);
-    border-radius:999px;
-    padding:10px 22px;
+    border-radius:10px;
+    padding:9px 18px;
     margin:0 0 8px;
+    max-width:100%;
     font-size:15px;
   }
 
   .modal__caja{
     position:relative;
     width:100%;
+    border-radius:18px;
     box-shadow:0 20px 60px rgba(39,29,219,0.15);
   }
 
@@ -323,28 +325,32 @@
   }
 
   /* -- tipo: imagen única -- */
-  .modal--imagen .modal__cuerpo{
-    padding:0 24px 24px;
-    display:flex;
-    justify-content:center;
+  /* La ventana toma exactamente el tamaño de la imagen (--ar = ancho/alto, se calcula en el script) */
+  .modal--imagen{
+    width:min(900px, 100%, calc(70vh * var(--ar, 1.5)));
   }
+  .modal--imagen .modal__contenido,
+  .modal--galeria .modal__contenido{ padding-top:0; }
+  .modal--imagen .modal__cuerpo{ padding:0; }
   .modal--imagen img{
-    max-height:65vh;
-    border-radius:10px;
+    display:block;
+    width:100%;
+    height:auto;
   }
 
   /* -- tipo: galería (scroll horizontal, título fijo arriba) -- */
+  .modal--galeria{ width:fit-content; }
   .modal--galeria .modal__cuerpo{
     display:flex;
-    gap:16px;
+    gap:12px;
     overflow-x:auto;
-    padding:24px;
+    padding:0;
     scroll-snap-type:x mandatory;
   }
   .modal--galeria .modal__cuerpo img{
+    display:block;
     height:60vh;
     flex:0 0 auto;
-    border-radius:10px;
     scroll-snap-align:start;
   }
 
@@ -423,7 +429,8 @@
 
     <p class="hero__intro">
       en mis proyectos me inspiro principalmente desde la naturaleza,
-      lo mágico, la cultura y lo social.
+      lo mágico y los fenómenos sociales. parte importante de mis propuestas
+      van de la mano con la importancia del relato y la experiencia.
     </p>
     <p class="hero__intro hero__intro--cierre">conoce más en profundidad aquí !</p>
   </div>
@@ -488,7 +495,10 @@
   // Carpeta donde están las imágenes. En cada ficha escribe solo el nombre del archivo (ej: 'ilustracion-flor.webp');
   // si un nombre ya trae una ruta con '/', se respeta tal cual.
   const carpetaImagenes = 'imagenes/proyectos/';
-  const ruta = src => (!src || src.includes('/')) ? src : carpetaImagenes + src;
+  const ruta = src => {
+    if (Array.isArray(src)) src = src[0];   // por si la portada se escribe entre corchetes
+    return (!src || src.includes('/')) ? src : carpetaImagenes + src;
+  };
 
   // Cómo se escribe cada área en la tarjeta (la etiqueta se arma sola desde 'categorias')
   const nombresCategorias = {
@@ -589,6 +599,46 @@
       tipo: 'imagen',
       titulo: 'martín pescador',
       imagenes: ['ilustracion-martinpescador.webp']
+    },
+
+    // ---------- FOTOGRAFÍA ----------
+    'fotos-donde-el-cerro-abraza-al-mar': {
+      orden: 11,
+      categorias: ['fotografia'],
+      nombre: 'fotos: donde el cerro abraza al mar',
+      anio: 2024,
+      portada: 'imagenes/proyectos/fotografia-dondeelcerroabrazaelmar-01.webp',
+      tipo: 'galeria',
+      titulo: 'fotos: donde el cerro abraza al mar',
+      imagenes: [
+        'imagenes/proyectos/fotografia-dondeelcerroabrazaelmar-01.webp',
+        'imagenes/proyectos/fotografia-dondeelcerroabrazaelmar-02.webp',
+        'imagenes/proyectos/fotografia-dondeelcerroabrazaelmar-03.webp',
+        'imagenes/proyectos/fotografia-dondeelcerroabrazaelmar-04.webp',
+        'imagenes/proyectos/fotografia-dondeelcerroabrazaelmar-05.webp',
+        'imagenes/proyectos/fotografia-dondeelcerroabrazaelmar-06.webp',
+        'imagenes/proyectos/fotografia-dondeelcerroabrazaelmar-07.webp',
+        'imagenes/proyectos/fotografia-dondeelcerroabrazaelmar-08.webp',
+        'imagenes/proyectos/fotografia-dondeelcerroabrazaelmar-09.webp'
+      ]
+    },
+    'teodioteodio-en-caja-acustica': {
+      orden: 12,
+      categorias: ['fotografia'],
+      nombre: 'teodioteodio en caja acústica',
+      anio: 2024,
+      portada: 'imagenes/proyectos/fotografia-teodioteodio-01.webp',
+      tipo: 'galeria',
+      titulo: 'teodioteodio en caja acústica',
+      imagenes: [
+        'imagenes/proyectos/fotografia-teodioteodio-01.webp',
+        'imagenes/proyectos/fotografia-teodioteodio-02.webp',
+        'imagenes/proyectos/fotografia-teodioteodio-03.webp',
+        'imagenes/proyectos/fotografia-teodioteodio-04.webp',
+        'imagenes/proyectos/fotografia-teodioteodio-05.webp',
+        'imagenes/proyectos/fotografia-teodioteodio-06.webp',
+        'imagenes/proyectos/fotografia-teodioteodio-07.webp'
+      ]
     }
   };
 
@@ -640,6 +690,7 @@
     if (!data) return;
 
     modal.className = 'modal modal--' + data.tipo;
+    modal.style.removeProperty('--ar');
     modalTitulo.textContent = data.titulo;
     let html = '';
 
@@ -664,9 +715,23 @@
       html += `<div class="modal__cuerpo">${bloques.join('')}</div>`;
     }
 
-    modalContenido.innerHTML = html;
-    overlay.classList.add('activo');
-    document.body.style.overflow = 'hidden';
+    const mostrar = () => {
+      modalContenido.innerHTML = html;
+      overlay.classList.add('activo');
+      document.body.style.overflow = 'hidden';
+    };
+
+    if (data.tipo === 'imagen'){
+      // Primero se lee la proporción de la imagen para que la ventana calce exacto
+      const pre = new Image();
+      pre.onload = pre.onerror = () => {
+        if (pre.naturalWidth) modal.style.setProperty('--ar', pre.naturalWidth / pre.naturalHeight);
+        mostrar();
+      };
+      pre.src = ruta(data.imagenes[0]);
+    } else {
+      mostrar();
+    }
   }
 
   function cerrarModal(){
