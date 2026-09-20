@@ -443,7 +443,35 @@
   </div>
 
   <div class="grilla" id="grilla-proyectos">
-    <!-- Las tarjetas se generan solas desde proyectosData (al final del archivo, dentro del <script>
+    <!-- Las tarjetas se generan solas desde proyectosData (al final del archivo, en la sección de scripts).
+         Para agregar, quitar o reordenar proyectos, edita solo proyectosData. -->
+  </div>
+</section>
+
+<!-- ============ MODAL DE PROYECTO ============ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <p class="modal__titulo mono-italica" id="modal-titulo"></p>
+    <div class="modal__caja">
+      <button type="button" class="modal__cerrar" id="modal-cerrar" aria-label="Cerrar">×</button>
+      <div class="modal__contenido" id="modal-contenido"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============ CONTACTO ============ -->
+<section id="contacto" class="contacto">
+  <h2 class="seccion__titulo">contacto</h2>
+  <div class="contacto__lista cuerpo-thin">
+    <a href="mailto:catalinaoyanedel3@gmail.com">catalinaoyanedel3@gmail.com</a>
+    <a href="https://www.instagram.com/catalinamiaaaa/" target="_blank" rel="noopener">instagram</a>
+  </div>
+</section>
+
+<footer>catalina oyanedel — {AÑO}</footer>
+
+<script>
   // ============ DATOS DE PROYECTOS ============
   // Cada proyecto se define UNA sola vez aquí. La grilla y el modal se arman desde estos datos.
   //   id (la clave)   : sin espacios ni tildes, único
