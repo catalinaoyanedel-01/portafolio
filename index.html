@@ -793,6 +793,68 @@
         'fotografia-hacerflorecer-05.webp',
         'fotografia-hacerflorecer-06.webp'
       ]
+    },
+    'perriot-en-santiago': {
+      orden: 19,
+      categorias: ['fotografia'],
+      nombre: 'perriot en santiago',
+      anio: 2024,
+      portada: 'fotografia-perriot-02.webp',
+      tipo: 'galeria',
+      titulo: 'perriot en santiago',
+      imagenes: [
+        'fotografia-perriot-01.webp',
+        'fotografia-perriot-02.webp'
+      ]
+    },
+    'experimentaciones-01': {
+      orden: 20,
+      categorias: ['fotografia'],
+      nombre: 'experimentaciones 01',
+      anio: 2024,
+      portada: 'fotografia-experimentacion-01.webp',
+      tipo: 'galeria',
+      titulo: 'experimentaciones 01',
+      imagenes: [
+        'fotografia-experimentacion-01.webp',
+        'fotografia-experimentacion-02.webp',
+        'fotografia-experimentacion-03.webp'
+      ]
+    },
+    'experimentaciones-02': {
+      orden: 21,
+      categorias: ['fotografia'],
+      nombre: 'experimentaciones 02',
+      anio: 2024,
+      portada: 'fotografia-cotidiano-01.webp',
+      tipo: 'galeria',
+      titulo: 'experimentaciones 02',
+      imagenes: [
+        'fotografia-cotidiano-01.webp',
+        'fotografia-cotidiano-02.webp',
+        'fotografia-cotidiano-03.webp'
+      ]
+    },
+
+    'jardin-de-calas': {
+      orden: 22,
+      categorias: ['ilustracion'],
+      nombre: 'jardín de calas',
+      anio: 2026,
+      portada: 'ilustracion-calas.webp',
+      tipo: 'imagen',
+      titulo: 'jardín de calas',
+      imagenes: ['ilustracion-calas.webp']
+    },
+    'transmutacion': {
+      orden: 23,
+      categorias: ['ilustracion'],
+      nombre: 'transmutación',
+      anio: 2026,
+      portada: 'ilustracion-transmutacion.webp',
+      tipo: 'imagen',
+      titulo: 'transmutación',
+      imagenes: ['ilustracion-transmutacion.webp']
     }
   };
 
@@ -872,6 +934,7 @@
   function abrirModal(id){
     const data = proyectosData[id];
     if (!data) return;
+    if (!Array.isArray(data.imagenes)) data.imagenes = [data.imagenes];   // por si se escribe sin corchetes
 
     modal.className = 'modal modal--' + data.tipo;
     modal.style.removeProperty('--ar');
