@@ -36,6 +36,7 @@
     --linea: rgba(39,29,219,0.35);
     --linea-suave: rgba(39,29,219,0.16);
     --maxw: 720px;
+    --radio:10px;          /* esquinas de TODOS los rectángulos (filtros, tarjetas, etiquetas, ventana) */
   }
 
   *{ box-sizing:border-box; }
@@ -183,7 +184,7 @@
     color:var(--azul);
     background:none;
     border:1px solid var(--azul);
-    border-radius:999px;
+    border-radius:var(--radio);
     padding:8px 18px;
     cursor:pointer;
     transition:background 0.15s ease, color 0.15s ease;
@@ -208,7 +209,7 @@
   .proyecto{
     aspect-ratio:4/5;
     border:1px solid var(--azul);
-    border-radius:18px;
+    border-radius:var(--radio);
     background:#EFEFEF;
     display:flex;
     align-items:flex-end;
@@ -227,10 +228,38 @@
   }
   .proyecto:hover{ transform:translateY(-4px); }
 
+  /* "+" en la esquina: indica que la tarjeta se abre (pareja del × de la ventana) */
+  .proyecto__mas{
+    position:absolute;
+    top:12px;
+    right:12px;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:1px solid var(--azul);
+    background:var(--blanco);
+    color:var(--azul);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    line-height:1;
+    padding-bottom:2px;
+    pointer-events:none;
+    transition:background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .proyecto:hover .proyecto__mas,
+  .proyecto:active .proyecto__mas,
+  .proyecto:focus-visible .proyecto__mas{
+    background:var(--azul);
+    color:var(--blanco);
+    transform:rotate(90deg);
+  }
+
   .proyecto__info{
     background:rgba(255,255,255,0.88);
     padding:8px 12px;
-    border-radius:10px;
+    border-radius:var(--radio);
     width:100%;
   }
 
@@ -284,7 +313,7 @@
     flex:0 0 auto;
     background:var(--azul);
     color:var(--blanco);
-    border-radius:10px;
+    border-radius:var(--radio);
     padding:9px 18px;
     margin:0 0 8px;
     max-width:100%;
@@ -294,7 +323,7 @@
   .modal__caja{
     position:relative;
     width:100%;
-    border-radius:18px;
+    border-radius:var(--radio);
     box-shadow:0 20px 60px rgba(39,29,219,0.15);
   }
 
@@ -315,10 +344,29 @@
   }
   .modal__cerrar:hover{ background:var(--linea-suave); }
 
+  /* contador "1 / 9" de la galería (arriba a la izquierda, frente al ×) */
+  .modal__contador{
+    position:absolute;
+    top:14px;
+    left:14px;
+    z-index:3;
+    background:var(--blanco);
+    color:var(--azul);
+    border:1px solid var(--azul);
+    border-radius:var(--radio);
+    padding:6px 10px;
+    font-family:'PP Lettra Mono', monospace;
+    font-style:italic;
+    font-size:13px;
+    line-height:1;
+    pointer-events:none;
+  }
+  .modal__contador[hidden]{ display:none; }
+
   .modal__contenido{
     background:var(--blanco);
     border:1px solid var(--azul);
-    border-radius:18px;
+    border-radius:var(--radio);
     max-height:85vh;
     overflow:hidden;
     padding-top:14px;
@@ -339,7 +387,7 @@
   }
 
   /* -- tipo: galería (scroll horizontal, título fijo arriba) -- */
-  .modal--galeria{ width:fit-content; }
+  .modal--galeria{ width:fit-content; max-width:min(900px, 100%); }
   .modal--galeria .modal__cuerpo{
     display:flex;
     gap:12px;
@@ -349,6 +397,8 @@
   }
   .modal--galeria .modal__cuerpo img{
     display:block;
+    max-width:none;      /* evita que el reset global las achique y las deforme */
+    width:auto;
     height:60vh;
     flex:0 0 auto;
     scroll-snap-align:start;
@@ -362,7 +412,7 @@
   }
   .modal--concepto .modal__cuerpo img{
     width:100%;
-    border-radius:10px;
+    border-radius:var(--radio);
     margin-bottom:20px;
   }
   .modal--concepto .modal__cuerpo p{
@@ -459,6 +509,7 @@
   <div class="modal" id="modal">
     <p class="modal__titulo mono-italica" id="modal-titulo"></p>
     <div class="modal__caja">
+      <span class="modal__contador" id="modal-contador" hidden></span>
       <button type="button" class="modal__cerrar" id="modal-cerrar" aria-label="Cerrar">×</button>
       <div class="modal__contenido" id="modal-contenido"></div>
     </div>
@@ -639,6 +690,109 @@
         'imagenes/proyectos/fotografia-teodioteodio-06.webp',
         'imagenes/proyectos/fotografia-teodioteodio-07.webp'
       ]
+    },
+    'salinas-de-pullally': {
+      orden: 13,
+      categorias: ['fotografia'],
+      nombre: 'salinas de pullally',
+      anio: 2024,
+      portada: 'imagenes/proyectos/fotografia-salinas-01.webp',
+      tipo: 'galeria',
+      titulo: 'salinas de pullally',
+      imagenes: [
+        'imagenes/proyectos/fotografia-salinas-01.webp',
+        'imagenes/proyectos/fotografia-salinas-02.webp',
+        'imagenes/proyectos/fotografia-salinas-03.webp',
+        'imagenes/proyectos/fotografia-salinas-04.webp',
+        'imagenes/proyectos/fotografia-salinas-05.webp',
+        'imagenes/proyectos/fotografia-salinas-06.webp',
+        'imagenes/proyectos/fotografia-salinas-07.webp',
+        'imagenes/proyectos/fotografia-salinas-08.webp'
+      ]
+    },
+    'ruido-blanko-edicion-05': {
+      orden: 14,
+      categorias: ['fotografia'],
+      nombre: 'ruidoblanko quinta edición',
+      anio: 2026,
+      portada: 'fotografia-rbmansion-01.webp',
+      tipo: 'galeria',
+      titulo: 'ruidoblanko quinta edición',
+      imagenes: [
+        'fotografia-rbmansion-01.webp',
+        'fotografia-rbmansion-02.webp',
+        'fotografia-rbmansion-03.webp',
+        'fotografia-rbmansion-04.webp',
+        'fotografia-rbmansion-05.webp',
+        'fotografia-rbmansion-06.webp'
+      ]
+    },
+    'quebrada-de-macul': {
+      orden: 15,
+      categorias: ['fotografia'],
+      nombre: 'quebrada de macul',
+      anio: 2025,
+      portada: 'fotografia-quebradamacul-01.webp',
+      tipo: 'galeria',
+      titulo: 'quebrada de macul',
+      imagenes: [
+        'fotografia-quebradamacul-01.webp',
+        'fotografia-quebradamacul-02.webp',
+        'fotografia-quebradamacul-03.webp',
+        'fotografia-quebradamacul-04.webp',
+        'fotografia-quebradamacul-05.webp',
+        'fotografia-quebradamacul-06.webp'
+      ]
+    },
+    'maestro-terror': {
+      orden: 16,
+      categorias: ['fotografia'],
+      nombre: 'sesión maestro terror',
+      anio: 2025,
+      portada: 'fotografia-maestroterror-01.webp',
+      tipo: 'galeria',
+      titulo: 'sesión maestro terror',
+      imagenes: [
+        'fotografia-maestroterror-01.webp',
+        'fotografia-maestroterror-02.webp',
+        'fotografia-maestroterror-03.webp',
+        'fotografia-maestroterror-04.webp',
+        'fotografia-maestroterror-05.webp',
+        'fotografia-maestroterror-06.webp'
+      ]
+    },
+    'jorts-kira': {
+      orden: 17,
+      categorias: ['fotografia'],
+      nombre: 'sesión jorts kira',
+      anio: 2025,
+      portada: 'fotografia-kira-01.webp',
+      tipo: 'galeria',
+      titulo: 'sesión jorts kira',
+      imagenes: [
+        'fotografia-kira-01.webp',
+        'fotografia-kira-02.webp',
+        'fotografia-kira-03.webp',
+        'fotografia-kira-04.webp',
+        'fotografia-kira-05.webp'
+      ]
+    },
+    'fotos-hacer-florecer': {
+      orden: 18,
+      categorias: ['fotografia'],
+      nombre: 'fotos: hacer florecer',
+      anio: 2024,
+      portada: 'fotografia-hacerflorecer-01.webp',
+      tipo: 'galeria',
+      titulo: 'fotos: hacer florecer',
+      imagenes: [
+        'fotografia-hacerflorecer-01.webp',
+        'fotografia-hacerflorecer-02.webp',
+        'fotografia-hacerflorecer-03.webp',
+        'fotografia-hacerflorecer-04.webp',
+        'fotografia-hacerflorecer-05.webp',
+        'fotografia-hacerflorecer-06.webp'
+      ]
     }
   };
 
@@ -649,6 +803,7 @@
       .sort((a, b) => a[1].orden - b[1].orden)
       .map(([id, p]) => `
         <button type="button" class="proyecto" data-categorias="${p.categorias.join(' ')}" data-id="${id}"${p.portada ? ` style="background:url('${ruta(p.portada)}') center/cover"` : ''}>
+          <span class="proyecto__mas" aria-hidden="true">+</span>
           <div class="proyecto__info">
             <p class="proyecto__nombre">${p.nombre}</p>
             <p class="proyecto__categoria">${p.categorias.map(c => nombresCategorias[c] || c).join(' · ')}</p>
@@ -684,6 +839,35 @@
   const modalTitulo = document.getElementById('modal-titulo');
   const modalContenido = document.getElementById('modal-contenido');
   const modalCerrar = document.getElementById('modal-cerrar');
+  const modalContador = document.getElementById('modal-contador');
+
+  // Contador "1 / N" de la galería: muestra la foto que está al inicio de la ventana
+  function actualizarContador(){
+    const cuerpo = modalContenido.querySelector('.modal__cuerpo');
+    if (!modal.classList.contains('modal--galeria') || !cuerpo){
+      modalContador.hidden = true;
+      return;
+    }
+    const imgs = [...cuerpo.querySelectorAll('img')];
+    const seDesplaza = cuerpo.scrollWidth > cuerpo.clientWidth + 2;
+    modalContador.hidden = !seDesplaza || imgs.length < 2;   // si todo cabe sin scroll, no hace falta
+    if (modalContador.hidden) return;
+
+    let idx = 0;
+    const alFinal = cuerpo.scrollLeft + cuerpo.clientWidth >= cuerpo.scrollWidth - 2;
+    if (alFinal){
+      idx = imgs.length - 1;
+    } else {
+      const izq = cuerpo.getBoundingClientRect().left;
+      let mejor = Infinity;
+      imgs.forEach((im, i) => {
+        const d = Math.abs(im.getBoundingClientRect().left - izq);
+        if (d < mejor){ mejor = d; idx = i; }
+      });
+    }
+    modalContador.textContent = (idx + 1) + ' / ' + imgs.length;
+  }
+  window.addEventListener('resize', actualizarContador);
 
   function abrirModal(id){
     const data = proyectosData[id];
@@ -719,6 +903,13 @@
       modalContenido.innerHTML = html;
       overlay.classList.add('activo');
       document.body.style.overflow = 'hidden';
+
+      if (data.tipo === 'galeria'){
+        const cuerpo = modalContenido.querySelector('.modal__cuerpo');
+        cuerpo.addEventListener('scroll', actualizarContador, { passive: true });
+        cuerpo.querySelectorAll('img').forEach(im => im.addEventListener('load', actualizarContador));
+      }
+      actualizarContador();
     };
 
     if (data.tipo === 'imagen'){
