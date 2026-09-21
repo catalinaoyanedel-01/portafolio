@@ -803,7 +803,7 @@
       .sort((a, b) => a[1].orden - b[1].orden)
       .map(([id, p]) => `
         <button type="button" class="proyecto" data-categorias="${p.categorias.join(' ')}" data-id="${id}"${p.portada ? ` style="background:url('${ruta(p.portada)}') center/cover"` : ''}>
-          <span class="proyecto__mas" aria-hidden="true">+</span>
+          ${p.tipo !== 'imagen' ? '<span class="proyecto__mas" aria-hidden="true">+</span>' : ''}
           <div class="proyecto__info">
             <p class="proyecto__nombre">${p.nombre}</p>
             <p class="proyecto__categoria">${p.categorias.map(c => nombresCategorias[c] || c).join(' · ')}</p>
