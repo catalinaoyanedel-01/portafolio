@@ -614,11 +614,11 @@
     'hazme-brillar': {
       orden: 6,
       categorias: ['ilustracion'],
-      nombre: 'hazme brillar',
+      nombre: 'resplandor',
       anio: 2025,
       portada: 'ilustracion-manos.webp',
       tipo: 'imagen',
-      titulo: 'hazme brillar',
+      titulo: 'resplandor',
       imagenes: ['ilustracion-manos.webp']
     },
     'orquidea-gavilea': {
@@ -855,6 +855,43 @@
       tipo: 'imagen',
       titulo: 'transmutación',
       imagenes: ['ilustracion-transmutacion.webp']
+    },
+
+    // ---------- DISEÑO GRÁFICO ----------
+    'mas-que-un-portal': {
+      orden: 24,
+      categorias: ['diseno-grafico'],
+      nombre: 'más que un portal',
+      anio: 2026,
+      portada: 'diseno-masqueunportal-01.webp',
+      tipo: 'galeria',
+      titulo: 'más que un portal',
+      imagenes: [
+        'diseno-masqueunportal-01.webp',
+        'diseno-masqueunportal-02.webp',
+        'diseno-masqueunportal-03.webp',
+        'diseno-masqueunportal-04.webp',
+        'diseno-masqueunportal-05.webp',
+        'diseno-masqueunportal-06.webp',
+        'diseno-masqueunportal-07.webp',
+        'diseno-masqueunportal-08.webp',
+        'diseno-masqueunportal-09.webp'
+      ]
+    },
+    'abejorro-nativo': {
+      orden: 25,
+      categorias: ['diseno-grafico'],
+      nombre: 'conoce a tu abejorro nativo',
+      anio: 2025,
+      portada: 'diseno-abejorros-01.webp',
+      tipo: 'galeria',
+      titulo: 'conoce a tu abejorro nativo',
+      imagenes: [
+        'diseno-abejorros-01.webp',
+        'diseno-abejorros-02.webp',
+        'diseno-abejorros-03.webp',
+        'diseno-abejorros-04.webp'
+      ]
     }
   };
 
@@ -873,6 +910,51 @@
         </button>`).join('');
   }
   renderProyectos();
+
+  // ============ VISTA PREVIA ANIMADA DE GALERÍAS (en las tarjetas) ============
+  // Computador: se anima solo mientras el cursor está encima. Celular (sin cursor): se anima
+  // sola cuando la tarjeta entra en pantalla, y se detiene al salir (para no gastar batería de más).
+  const tieneCursor = window.matchMedia('(hover: hover)').matches;
+  const INTERVALO_MS = 900;
+
+  function iniciarCiclo(tarjeta, p){
+    if (tarjeta._temporizador) return;
+    let i = 0;
+    tarjeta._temporizador = setInterval(() => {
+      i = (i + 1) % p.imagenes.length;
+      tarjeta.style.backgroundImage = `url('${ruta(p.imagenes[i])}')`;
+    }, INTERVALO_MS);
+  }
+  function detenerCiclo(tarjeta, p){
+    clearInterval(tarjeta._temporizador);
+    tarjeta._temporizador = null;
+    tarjeta.style.backgroundImage = `url('${ruta(p.portada)}')`;
+  }
+
+  let observadorTarjetas;
+  function iniciarVistasPrevias(){
+    if (observadorTarjetas) observadorTarjetas.disconnect();
+    observadorTarjetas = new IntersectionObserver(entradas => {
+      entradas.forEach(entrada => {
+        const tarjeta = entrada.target;
+        const p = proyectosData[tarjeta.dataset.id];
+        if (entrada.isIntersecting) iniciarCiclo(tarjeta, p); else detenerCiclo(tarjeta, p);
+      });
+    }, { threshold: 0.6 });
+
+    document.querySelectorAll('.proyecto').forEach(tarjeta => {
+      const p = proyectosData[tarjeta.dataset.id];
+      if (!p.portada || p.imagenes.length < 2) return;   // nada que animar
+
+      if (tieneCursor){
+        tarjeta.addEventListener('mouseenter', () => iniciarCiclo(tarjeta, p));
+        tarjeta.addEventListener('mouseleave', () => detenerCiclo(tarjeta, p));
+      } else {
+        observadorTarjetas.observe(tarjeta);
+      }
+    });
+  }
+  iniciarVistasPrevias();
 
   // ============ FILTRO DE PROYECTOS ============
   const botones = document.querySelectorAll('.filtro');
