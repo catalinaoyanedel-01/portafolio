@@ -144,10 +144,11 @@
     gap:16px;
   }
 
+  /* Estrella: mantiene proporción original sin deformar ni tapar esquinas */
   .hero__estrella{
     width:58px;
     height:40px;
-    background:var(--azul);
+    background:transparent;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -155,7 +156,13 @@
     position:relative;
     top:-4px;
   }
-  .hero__estrella img{ width:80%; }
+  .hero__estrella img{
+    max-width:100%;
+    max-height:100%;
+    width:auto;
+    height:100%;
+    object-fit:contain;
+  }
 
   .hero__titulos{ text-align:left; }
 
@@ -194,7 +201,7 @@
     font-style:italic;
     color:var(--azul);
     letter-spacing:0.02em;
-    font-size:20px;
+    font-size:22px;
     text-align:center;
     margin:0 0 32px;
   }
@@ -204,10 +211,14 @@
   }
 
   /* ============ FILTROS ============ */
+  /* Alineados de borde a borde en escritorio; bajan con wrap si la pantalla es pequeña */
   .filtros{
     display:flex;
     flex-wrap:wrap;
-    gap:10px;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+    gap:12px 10px;
     margin-bottom:40px;
   }
 
@@ -215,24 +226,36 @@
     font-family:'PP Lettra Mono', monospace;
     font-style:italic;
     font-weight:500;
-    font-size:14px;
+    font-size:17px;           /* Texto agrandado acorde al prototipo */
     letter-spacing:0.01em;
     color:var(--azul);
     background:none;
     border:1px solid var(--azul);
     border-radius:var(--radio);
-    padding:8px 18px;
+    padding:10px 22px;
     cursor:pointer;
+    white-space:nowrap;
     transition:background 0.15s ease, color 0.15s ease;
   }
   .filtro:hover{ background:var(--linea-suave); }
   .filtro.activo{ background:var(--azul); color:var(--blanco); }
+
+  @media (max-width:768px){
+    .filtros{
+      justify-content:flex-start; /* en pantallas pequeñas bajan libremente alineados a la izquierda */
+      gap:10px 8px;
+    }
+    .filtro{
+      padding:8px 16px;
+    }
+  }
 
   /* ============ GRILLA DE PROYECTOS ============ */
   .grilla{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
     gap:20px;
+    width:100%;
   }
 
   @media (max-width:900px){
