@@ -203,11 +203,11 @@
     padding-top:24px;
   }
 
-  /* ============ FILTROS ============ */
+  /* ============ FILTROS (ALINEADOS A LA GRILLA DE PROYECTOS) ============ */
   .filtros{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:10px 20px;
     margin-bottom:40px;
   }
 
@@ -221,12 +221,21 @@
     background:none;
     border:1px solid var(--azul);
     border-radius:var(--radio);
-    padding:8px 18px;
+    padding:8px 12px;
     cursor:pointer;
     transition:background 0.15s ease, color 0.15s ease;
+    width:100%;
+    text-align:center;
   }
   .filtro:hover{ background:var(--linea-suave); }
   .filtro.activo{ background:var(--azul); color:var(--blanco); }
+
+  @media (max-width:900px){
+    .filtros{ grid-template-columns:repeat(2, 1fr); }
+  }
+  @media (max-width:520px){
+    .filtros{ grid-template-columns:1fr; }
+  }
 
   /* ============ GRILLA DE PROYECTOS ============ */
   .grilla{
