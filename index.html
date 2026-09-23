@@ -54,6 +54,27 @@
 
   a{ color:var(--azul); }
 
+  /* Puntero personalizado: un círculo azul que sigue al cursor (solo en pantallas con mouse) */
+  .cursor-circulo{
+    position:fixed;
+    top:0; left:0;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:var(--azul);
+    pointer-events:none;
+    z-index:9999;
+    opacity:0;
+    transform:translate(-50%,-50%);
+    transition:opacity 0.2s ease, width 0.15s ease, height 0.15s ease;
+  }
+  .cursor-circulo.activo{ opacity:0.85; }
+  .cursor-circulo.grande{ width:44px; height:44px; }
+  @media (hover:hover) and (pointer:fine){
+    body{ cursor:none; }
+    a, button{ cursor:none; }
+  }
+
   /* ============ TÍTULOS Y NOMBRE ============ */
   .nombre{
     font-family:'PP Writer', serif;
@@ -142,6 +163,7 @@
     font-size:21px;
     line-height:1.6;
     text-wrap:pretty;
+    color:var(--azul);
   }
 
   .hero__intro--cierre{
@@ -156,10 +178,12 @@
   }
 
   .seccion__titulo{
-    font-family:'PP Writer', serif;
+    font-family:'PP Lettra Mono', monospace;
+    font-style:italic;
     color:var(--azul);
     letter-spacing:0.02em;
     font-size:20px;
+    text-align:center;
     margin:0 0 32px;
   }
 
@@ -228,32 +252,29 @@
   }
   .proyecto:hover{ transform:translateY(-4px); }
 
-  /* "+" en la esquina: indica que la tarjeta se abre (pareja del × de la ventana) */
+  /* Etiqueta pequeña y sutil en la esquina: indica que la tarjeta se abre
+     (cantidad de fotos en galerías, "ver más información" en conceptos) */
   .proyecto__mas{
     position:absolute;
-    top:12px;
-    right:12px;
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    border:1px solid var(--azul);
-    background:var(--blanco);
+    top:10px;
+    right:10px;
+    background:rgba(255,255,255,0.85);
     color:var(--azul);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    line-height:1;
-    padding-bottom:2px;
+    border:1px solid var(--azul);
+    border-radius:var(--radio);
+    padding:3px 8px;
+    font-family:'PP Lettra Mono', monospace;
+    font-style:italic;
+    font-size:11px;
+    line-height:1.3;
     pointer-events:none;
-    transition:background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    opacity:0.85;
+    transition:opacity 0.2s ease;
   }
   .proyecto:hover .proyecto__mas,
   .proyecto:active .proyecto__mas,
   .proyecto:focus-visible .proyecto__mas{
-    background:var(--azul);
-    color:var(--blanco);
-    transform:rotate(90deg);
+    opacity:1;
   }
 
   .proyecto__info{
@@ -363,6 +384,28 @@
   }
   .modal__contador[hidden]{ display:none; }
 
+  /* Flechas para recorrer la galería, mismo estilo que el × y el contador */
+  .modal__flecha{
+    position:absolute;
+    top:50%;
+    z-index:3;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid var(--azul);
+    background:var(--blanco);
+    color:var(--azul);
+    font-size:16px;
+    line-height:1;
+    cursor:pointer;
+    transform:translateY(-50%);
+    transition:background 0.2s ease, opacity 0.2s ease;
+  }
+  .modal__flecha:hover{ background:var(--linea-suave); }
+  .modal__flecha--izq{ left:14px; }
+  .modal__flecha--der{ right:14px; }
+  .modal__flecha[hidden]{ display:none; }
+
   .modal__contenido{
     background:var(--blanco);
     border:1px solid var(--azul);
@@ -459,6 +502,7 @@
 </style>
 </head>
 <body>
+<div class="cursor-circulo" id="cursor-circulo" aria-hidden="true"></div>
 
 <!-- ============ HERO ============ -->
 <header>
@@ -478,11 +522,10 @@
     </div>
 
     <p class="hero__intro">
-      en mis proyectos me inspiro principalmente desde la naturaleza,
-      lo mágico y los fenómenos sociales. parte importante de mis propuestas
-      van de la mano con la importancia del relato y la experiencia.
+      en mis proyectos me inspiro principalmente desde la naturaleza y la
+      biodiversidad, lo mágico, la cultura y lo social.
     </p>
-    <p class="hero__intro hero__intro--cierre">conoce más en profundidad aquí !</p>
+    <p class="hero__intro hero__intro--cierre">conoce más en profundidad acá!</p>
   </div>
 </header>
 
@@ -510,6 +553,8 @@
     <p class="modal__titulo mono-italica" id="modal-titulo"></p>
     <div class="modal__caja">
       <span class="modal__contador" id="modal-contador" hidden></span>
+      <button type="button" class="modal__flecha modal__flecha--izq" id="modal-flecha-izq" aria-label="Foto anterior" hidden>‹</button>
+      <button type="button" class="modal__flecha modal__flecha--der" id="modal-flecha-der" aria-label="Foto siguiente" hidden>›</button>
       <button type="button" class="modal__cerrar" id="modal-cerrar" aria-label="Cerrar">×</button>
       <div class="modal__contenido" id="modal-contenido"></div>
     </div>
@@ -561,18 +606,8 @@
 
   const proyectosData = {
     // ---------- ILUSTRACIÓN ----------
-    'una-carta-para-ti': {
-      orden: 1,
-      categorias: ['ilustracion'],
-      nombre: 'una carta para ti',
-      anio: 2025,
-      portada: 'ilustracion-cartadeamor.webp',
-      tipo: 'imagen',
-      titulo: 'una carta para ti',
-      imagenes: ['ilustracion-cartadeamor.webp']
-    },
     'composicion-ornamental': {
-      orden: 2,
+      orden: 16,
       categorias: ['ilustracion'],
       nombre: 'composición ornamental',
       anio: 2025,
@@ -582,7 +617,7 @@
       imagenes: ['ilustracion-compisicion.webp']
     },
     'conoce-a-tu-fauna-nativa': {
-      orden: 3,
+      orden: 10,
       categorias: ['ilustracion', 'diseno-grafico'],
       nombre: 'fauna nativa: gato de geoffroy',
       anio: 2025,
@@ -592,7 +627,7 @@
       imagenes: ['ilustracion-conoceatufaunanativa.webp']
     },
     'espirales': {
-      orden: 4,
+      orden: 22,
       categorias: ['ilustracion'],
       nombre: 'soñar espiral',
       anio: 2025,
@@ -602,7 +637,7 @@
       imagenes: ['ilustracion-espirales.webp']
     },
     'portal-floral': {
-      orden: 5,
+      orden: 8,
       categorias: ['ilustracion'],
       nombre: 'portal floral',
       anio: 2025,
@@ -612,7 +647,7 @@
       imagenes: ['ilustracion-flor.webp']
     },
     'hazme-brillar': {
-      orden: 6,
+      orden: 12,
       categorias: ['ilustracion'],
       nombre: 'resplandor',
       anio: 2025,
@@ -622,7 +657,7 @@
       imagenes: ['ilustracion-manos.webp']
     },
     'orquidea-gavilea': {
-      orden: 7,
+      orden: 24,
       categorias: ['ilustracion'],
       nombre: 'orquídea gavilea',
       anio: 2025,
@@ -632,7 +667,7 @@
       imagenes: ['ilustracion-orquidea.webp']
     },
     'pinguino-de-humboldt': {
-      orden: 8,
+      orden: 20,
       categorias: ['ilustracion'],
       nombre: 'pingüino de humboldt',
       anio: 2025,
@@ -642,7 +677,7 @@
       imagenes: ['ilustracion-pinguinodehumboldt.webp']
     },
     'martin-pescador': {
-      orden: 9,
+      orden: 14,
       categorias: ['ilustracion'],
       nombre: 'martín pescador',
       anio: 2025,
@@ -654,7 +689,7 @@
 
     // ---------- FOTOGRAFÍA ----------
     'fotos-donde-el-cerro-abraza-al-mar': {
-      orden: 11,
+      orden: 21,
       categorias: ['fotografia'],
       nombre: 'fotos: donde el cerro abraza al mar',
       anio: 2024,
@@ -674,7 +709,7 @@
       ]
     },
     'teodioteodio-en-caja-acustica': {
-      orden: 12,
+      orden: 19,
       categorias: ['fotografia'],
       nombre: 'teodioteodio en caja acústica',
       anio: 2024,
@@ -692,7 +727,7 @@
       ]
     },
     'salinas-de-pullally': {
-      orden: 13,
+      orden: 5,
       categorias: ['fotografia'],
       nombre: 'salinas de pullally',
       anio: 2024,
@@ -711,7 +746,7 @@
       ]
     },
     'ruido-blanko-edicion-05': {
-      orden: 14,
+      orden: 23,
       categorias: ['fotografia'],
       nombre: 'ruidoblanko quinta edición',
       anio: 2026,
@@ -728,7 +763,7 @@
       ]
     },
     'quebrada-de-macul': {
-      orden: 15,
+      orden: 9,
       categorias: ['fotografia'],
       nombre: 'quebrada de macul',
       anio: 2025,
@@ -745,7 +780,7 @@
       ]
     },
     'maestro-terror': {
-      orden: 16,
+      orden: 7,
       categorias: ['fotografia'],
       nombre: 'sesión maestro terror',
       anio: 2025,
@@ -762,7 +797,7 @@
       ]
     },
     'jorts-kira': {
-      orden: 17,
+      orden: 15,
       categorias: ['fotografia'],
       nombre: 'sesión jorts kira',
       anio: 2025,
@@ -778,7 +813,7 @@
       ]
     },
     'fotos-hacer-florecer': {
-      orden: 18,
+      orden: 11,
       categorias: ['fotografia'],
       nombre: 'fotos: hacer florecer',
       anio: 2024,
@@ -795,7 +830,7 @@
       ]
     },
     'perriot-en-santiago': {
-      orden: 19,
+      orden: 25,
       categorias: ['fotografia'],
       nombre: 'perriot en santiago',
       anio: 2024,
@@ -808,7 +843,7 @@
       ]
     },
     'experimentaciones-01': {
-      orden: 20,
+      orden: 17,
       categorias: ['fotografia'],
       nombre: 'experimentaciones 01',
       anio: 2024,
@@ -822,7 +857,7 @@
       ]
     },
     'experimentaciones-02': {
-      orden: 21,
+      orden: 13,
       categorias: ['fotografia'],
       nombre: 'experimentaciones 02',
       anio: 2024,
@@ -837,7 +872,7 @@
     },
 
     'jardin-de-calas': {
-      orden: 22,
+      orden: 4,
       categorias: ['ilustracion'],
       nombre: 'jardín de calas',
       anio: 2026,
@@ -847,7 +882,7 @@
       imagenes: ['ilustracion-calas.webp']
     },
     'transmutacion': {
-      orden: 23,
+      orden: 18,
       categorias: ['ilustracion'],
       nombre: 'transmutación',
       anio: 2026,
@@ -859,7 +894,7 @@
 
     // ---------- DISEÑO GRÁFICO ----------
     'mas-que-un-portal': {
-      orden: 24,
+      orden: 3,
       categorias: ['diseno-grafico'],
       nombre: 'más que un portal',
       anio: 2026,
@@ -879,7 +914,7 @@
       ]
     },
     'abejorro-nativo': {
-      orden: 25,
+      orden: 1,
       categorias: ['diseno-grafico'],
       nombre: 'conoce a tu abejorro nativo',
       anio: 2025,
@@ -892,6 +927,27 @@
         'diseno-abejorros-03.webp',
         'diseno-abejorros-04.webp'
       ]
+    },
+    'afiche-concurso': {
+      orden: 2,
+      categorias: ['diseno-grafico'],
+      nombre: 'concurso de afiches ladera sur',
+      anio: 2026,
+      portada: 'diseno-concurso.webp',
+      tipo: 'concepto',
+      titulo: 'concurso de afiches ladera sur',
+      imagenes: ['diseno-concurso.webp'],
+      texto: ['realización de afiche para el concurso de afiches de ladera sur 2026 durante mi práctica profesional.']
+    },
+    'title-card': {
+      orden: 6,
+      categorias: ['diseno-grafico'],
+      nombre: 'title card ruido blanko',
+      anio: 2025,
+      portada: 'diseno-titlecard.gif',
+      tipo: 'concepto',
+      titulo: 'title card ruido blanko',
+      imagenes: ['diseno-titlecard.gif']
     }
   };
 
@@ -902,7 +958,8 @@
       .sort((a, b) => a[1].orden - b[1].orden)
       .map(([id, p]) => `
         <button type="button" class="proyecto" data-categorias="${p.categorias.join(' ')}" data-id="${id}"${p.portada ? ` style="background:url('${ruta(p.portada)}') center/cover"` : ''}>
-          ${p.tipo !== 'imagen' ? '<span class="proyecto__mas" aria-hidden="true">+</span>' : ''}
+          ${p.tipo === 'galeria' ? `<span class="proyecto__mas">${p.imagenes.length} fotos</span>` : ''}
+          ${p.tipo === 'concepto' ? '<span class="proyecto__mas">ver más información</span>' : ''}
           <div class="proyecto__info">
             <p class="proyecto__nombre">${p.nombre}</p>
             <p class="proyecto__categoria">${p.categorias.map(c => nombresCategorias[c] || c).join(' · ')}</p>
@@ -910,51 +967,6 @@
         </button>`).join('');
   }
   renderProyectos();
-
-  // ============ VISTA PREVIA ANIMADA DE GALERÍAS (en las tarjetas) ============
-  // Computador: se anima solo mientras el cursor está encima. Celular (sin cursor): se anima
-  // sola cuando la tarjeta entra en pantalla, y se detiene al salir (para no gastar batería de más).
-  const tieneCursor = window.matchMedia('(hover: hover)').matches;
-  const INTERVALO_MS = 900;
-
-  function iniciarCiclo(tarjeta, p){
-    if (tarjeta._temporizador) return;
-    let i = 0;
-    tarjeta._temporizador = setInterval(() => {
-      i = (i + 1) % p.imagenes.length;
-      tarjeta.style.backgroundImage = `url('${ruta(p.imagenes[i])}')`;
-    }, INTERVALO_MS);
-  }
-  function detenerCiclo(tarjeta, p){
-    clearInterval(tarjeta._temporizador);
-    tarjeta._temporizador = null;
-    tarjeta.style.backgroundImage = `url('${ruta(p.portada)}')`;
-  }
-
-  let observadorTarjetas;
-  function iniciarVistasPrevias(){
-    if (observadorTarjetas) observadorTarjetas.disconnect();
-    observadorTarjetas = new IntersectionObserver(entradas => {
-      entradas.forEach(entrada => {
-        const tarjeta = entrada.target;
-        const p = proyectosData[tarjeta.dataset.id];
-        if (entrada.isIntersecting) iniciarCiclo(tarjeta, p); else detenerCiclo(tarjeta, p);
-      });
-    }, { threshold: 0.6 });
-
-    document.querySelectorAll('.proyecto').forEach(tarjeta => {
-      const p = proyectosData[tarjeta.dataset.id];
-      if (!p.portada || p.imagenes.length < 2) return;   // nada que animar
-
-      if (tieneCursor){
-        tarjeta.addEventListener('mouseenter', () => iniciarCiclo(tarjeta, p));
-        tarjeta.addEventListener('mouseleave', () => detenerCiclo(tarjeta, p));
-      } else {
-        observadorTarjetas.observe(tarjeta);
-      }
-    });
-  }
-  iniciarVistasPrevias();
 
   // ============ FILTRO DE PROYECTOS ============
   const botones = document.querySelectorAll('.filtro');
@@ -984,6 +996,8 @@
   const modalContenido = document.getElementById('modal-contenido');
   const modalCerrar = document.getElementById('modal-cerrar');
   const modalContador = document.getElementById('modal-contador');
+  const modalFlechaIzq = document.getElementById('modal-flecha-izq');
+  const modalFlechaDer = document.getElementById('modal-flecha-der');
 
   // Contador "1 / N" de la galería: muestra la foto que está al inicio de la ventana
   function actualizarContador(){
@@ -1010,8 +1024,33 @@
       });
     }
     modalContador.textContent = (idx + 1) + ' / ' + imgs.length;
+
+    modalFlechaIzq.hidden = false;
+    modalFlechaDer.hidden = false;
+    modalFlechaIzq.style.opacity = idx === 0 ? '0.35' : '1';
+    modalFlechaDer.style.opacity = idx === imgs.length - 1 ? '0.35' : '1';
   }
   window.addEventListener('resize', actualizarContador);
+
+  // Las flechas avanzan o retroceden exactamente una foto (sirve aunque las fotos midan distinto)
+  function moverGaleria(direccion){
+    const cuerpo = modalContenido.querySelector('.modal__cuerpo');
+    if (!cuerpo) return;
+    const imgs = [...cuerpo.querySelectorAll('img')];
+    if (!imgs.length) return;
+
+    const izq = cuerpo.getBoundingClientRect().left;
+    let idx = 0, mejor = Infinity;
+    imgs.forEach((im, i) => {
+      const d = Math.abs(im.getBoundingClientRect().left - izq);
+      if (d < mejor){ mejor = d; idx = i; }
+    });
+
+    const destino = imgs[Math.min(imgs.length - 1, Math.max(0, idx + direccion))];
+    cuerpo.scrollTo({ left: cuerpo.scrollLeft + (destino.getBoundingClientRect().left - izq), behavior: 'smooth' });
+  }
+  modalFlechaIzq.addEventListener('click', () => moverGaleria(-1));
+  modalFlechaDer.addEventListener('click', () => moverGaleria(1));
 
   function abrirModal(id){
     const data = proyectosData[id];
@@ -1021,6 +1060,8 @@
     modal.className = 'modal modal--' + data.tipo;
     modal.style.removeProperty('--ar');
     modalTitulo.textContent = data.titulo;
+    modalFlechaIzq.hidden = true;
+    modalFlechaDer.hidden = true;
     let html = '';
 
     if (data.tipo === 'imagen'){
@@ -1086,6 +1127,24 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') cerrarModal();
   });
+
+  // ============ PUNTERO PERSONALIZADO ============
+  // Círculo azul que sigue al cursor. Solo se activa en pantallas con mouse (en celular no aparece).
+  const cursorCirculo = document.getElementById('cursor-circulo');
+  if (window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+    document.addEventListener('mousemove', (e) => {
+      cursorCirculo.style.left = e.clientX + 'px';
+      cursorCirculo.style.top = e.clientY + 'px';
+      cursorCirculo.classList.add('activo');
+    });
+    document.addEventListener('mouseleave', () => cursorCirculo.classList.remove('activo'));
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursorCirculo.classList.add('grande'));
+      el.addEventListener('mouseleave', () => cursorCirculo.classList.remove('grande'));
+    });
+  } else {
+    cursorCirculo.remove();
+  }
 </script>
 
 </body>
