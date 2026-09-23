@@ -28,6 +28,18 @@
     font-weight:500;
     font-style:italic;
   }
+  @font-face{
+    font-family:'PP Lettra Mono';
+    src:url('fonts/PPLettraMono-Ultralight.otf') format('opentype');
+    font-weight:200;
+    font-style:italic;
+  }
+  @font-face{
+    font-family:'PP Writer Regular Text';
+    src:url('fonts/PPWriter-RegularText.otf') format('opentype');
+    font-weight:400;
+    font-style:normal;
+  }
 
   :root{
     --azul:#271DDB;
@@ -58,8 +70,8 @@
   .cursor-circulo{
     position:fixed;
     top:0; left:0;
-    width:22px;
-    height:22px;
+    width:12px;
+    height:12px;
     border-radius:50%;
     background:var(--azul);
     pointer-events:none;
@@ -69,7 +81,7 @@
     transition:opacity 0.2s ease, width 0.15s ease, height 0.15s ease;
   }
   .cursor-circulo.activo{ opacity:0.85; }
-  .cursor-circulo.grande{ width:44px; height:44px; }
+  .cursor-circulo.grande{ width:26px; height:26px; }
   @media (hover:hover) and (pointer:fine){
     body{ cursor:none; }
     a, button{ cursor:none; }
@@ -155,15 +167,15 @@
   }
 
   .hero__intro{
-    max-width:560px;
+    max-width:680px;
     margin:40px auto 0;
     font-family:'PP Writer Thin Text', sans-serif;
     font-weight:100;
     letter-spacing:0.01em;
     font-size:21px;
-    line-height:1.6;
+    line-height:1.4;
     text-wrap:pretty;
-    color:var(--azul);
+    color:var(--tinta);
   }
 
   .hero__intro--cierre{
@@ -264,6 +276,7 @@
     border-radius:var(--radio);
     padding:3px 8px;
     font-family:'PP Lettra Mono', monospace;
+    font-weight:200;
     font-style:italic;
     font-size:11px;
     line-height:1.3;
@@ -447,7 +460,10 @@
     scroll-snap-align:start;
   }
 
-  /* -- tipo: concepto (scroll vertical con texto e imágenes) -- */
+  /* -- tipo: concepto (texto e imágenes; el ancho se ajusta a la primera imagen, como en modo imagen) -- */
+  .modal--concepto{
+    width:min(900px, 100%, calc(60vh * var(--ar, 1)));
+  }
   .modal--concepto .modal__cuerpo{
     padding:0 24px 32px;
     max-height:calc(85vh - 60px);
@@ -459,6 +475,8 @@
     margin-bottom:20px;
   }
   .modal--concepto .modal__cuerpo p{
+    font-family:'PP Writer Regular Text', sans-serif;
+    color:var(--azul);
     font-size:16px;
     line-height:1.7;
     margin:0 0 20px;
@@ -522,8 +540,8 @@
     </div>
 
     <p class="hero__intro">
-      en mis proyectos me inspiro principalmente desde la naturaleza y la
-      biodiversidad, lo mágico, la cultura y lo social.
+      en mis proyectos me inspiro principalmente desde la<br>
+      naturaleza y la biodiversidad, lo mágico, la cultura y lo social.
     </p>
     <p class="hero__intro hero__intro--cierre">conoce más en profundidad acá!</p>
   </div>
@@ -607,7 +625,7 @@
   const proyectosData = {
     // ---------- ILUSTRACIÓN ----------
     'composicion-ornamental': {
-      orden: 16,
+      orden: 8,
       categorias: ['ilustracion'],
       nombre: 'composición ornamental',
       anio: 2025,
@@ -627,7 +645,7 @@
       imagenes: ['ilustracion-conoceatufaunanativa.webp']
     },
     'espirales': {
-      orden: 22,
+      orden: 4,
       categorias: ['ilustracion'],
       nombre: 'soñar espiral',
       anio: 2025,
@@ -637,7 +655,7 @@
       imagenes: ['ilustracion-espirales.webp']
     },
     'portal-floral': {
-      orden: 8,
+      orden: 17,
       categorias: ['ilustracion'],
       nombre: 'portal floral',
       anio: 2025,
@@ -647,7 +665,7 @@
       imagenes: ['ilustracion-flor.webp']
     },
     'hazme-brillar': {
-      orden: 12,
+      orden: 15,
       categorias: ['ilustracion'],
       nombre: 'resplandor',
       anio: 2025,
@@ -657,7 +675,7 @@
       imagenes: ['ilustracion-manos.webp']
     },
     'orquidea-gavilea': {
-      orden: 24,
+      orden: 12,
       categorias: ['ilustracion'],
       nombre: 'orquídea gavilea',
       anio: 2025,
@@ -667,7 +685,7 @@
       imagenes: ['ilustracion-orquidea.webp']
     },
     'pinguino-de-humboldt': {
-      orden: 20,
+      orden: 6,
       categorias: ['ilustracion'],
       nombre: 'pingüino de humboldt',
       anio: 2025,
@@ -677,7 +695,7 @@
       imagenes: ['ilustracion-pinguinodehumboldt.webp']
     },
     'martin-pescador': {
-      orden: 14,
+      orden: 23,
       categorias: ['ilustracion'],
       nombre: 'martín pescador',
       anio: 2025,
@@ -689,7 +707,7 @@
 
     // ---------- FOTOGRAFÍA ----------
     'fotos-donde-el-cerro-abraza-al-mar': {
-      orden: 21,
+      orden: 11,
       categorias: ['fotografia'],
       nombre: 'fotos: donde el cerro abraza al mar',
       anio: 2024,
@@ -709,7 +727,7 @@
       ]
     },
     'teodioteodio-en-caja-acustica': {
-      orden: 19,
+      orden: 20,
       categorias: ['fotografia'],
       nombre: 'teodioteodio en caja acústica',
       anio: 2024,
@@ -727,7 +745,7 @@
       ]
     },
     'salinas-de-pullally': {
-      orden: 5,
+      orden: 22,
       categorias: ['fotografia'],
       nombre: 'salinas de pullally',
       anio: 2024,
@@ -746,7 +764,7 @@
       ]
     },
     'ruido-blanko-edicion-05': {
-      orden: 23,
+      orden: 18,
       categorias: ['fotografia'],
       nombre: 'ruidoblanko quinta edición',
       anio: 2026,
@@ -763,7 +781,7 @@
       ]
     },
     'quebrada-de-macul': {
-      orden: 9,
+      orden: 5,
       categorias: ['fotografia'],
       nombre: 'quebrada de macul',
       anio: 2025,
@@ -780,7 +798,7 @@
       ]
     },
     'maestro-terror': {
-      orden: 7,
+      orden: 9,
       categorias: ['fotografia'],
       nombre: 'sesión maestro terror',
       anio: 2025,
@@ -797,7 +815,7 @@
       ]
     },
     'jorts-kira': {
-      orden: 15,
+      orden: 7,
       categorias: ['fotografia'],
       nombre: 'sesión jorts kira',
       anio: 2025,
@@ -813,7 +831,7 @@
       ]
     },
     'fotos-hacer-florecer': {
-      orden: 11,
+      orden: 13,
       categorias: ['fotografia'],
       nombre: 'fotos: hacer florecer',
       anio: 2024,
@@ -830,7 +848,7 @@
       ]
     },
     'perriot-en-santiago': {
-      orden: 25,
+      orden: 16,
       categorias: ['fotografia'],
       nombre: 'perriot en santiago',
       anio: 2024,
@@ -843,7 +861,7 @@
       ]
     },
     'experimentaciones-01': {
-      orden: 17,
+      orden: 24,
       categorias: ['fotografia'],
       nombre: 'experimentaciones 01',
       anio: 2024,
@@ -857,8 +875,8 @@
       ]
     },
     'experimentaciones-02': {
-      orden: 13,
-      categorias: ['fotografia'],
+      orden: 25,
+      categorias: ['fotografia', 'diseno-grafico'],
       nombre: 'experimentaciones 02',
       anio: 2024,
       portada: 'fotografia-cotidiano-01.webp',
@@ -872,7 +890,7 @@
     },
 
     'jardin-de-calas': {
-      orden: 4,
+      orden: 21,
       categorias: ['ilustracion'],
       nombre: 'jardín de calas',
       anio: 2026,
@@ -882,7 +900,7 @@
       imagenes: ['ilustracion-calas.webp']
     },
     'transmutacion': {
-      orden: 18,
+      orden: 19,
       categorias: ['ilustracion'],
       nombre: 'transmutación',
       anio: 2026,
@@ -931,21 +949,21 @@
     'afiche-concurso': {
       orden: 2,
       categorias: ['diseno-grafico'],
-      nombre: 'concurso de afiches ladera sur',
+      nombre: 'concurso afiches ladera sur',
       anio: 2026,
       portada: 'diseno-concurso.webp',
       tipo: 'concepto',
-      titulo: 'concurso de afiches ladera sur',
+      titulo: 'concurso afiches ladera sur',
       imagenes: ['diseno-concurso.webp'],
       texto: ['realización de afiche para el concurso de afiches de ladera sur 2026 durante mi práctica profesional.']
     },
     'title-card': {
-      orden: 6,
+      orden: 14,
       categorias: ['diseno-grafico'],
       nombre: 'title card ruido blanko',
       anio: 2025,
       portada: 'diseno-titlecard.gif',
-      tipo: 'concepto',
+      tipo: 'imagen',
       titulo: 'title card ruido blanko',
       imagenes: ['diseno-titlecard.gif']
     }
@@ -1098,7 +1116,7 @@
       actualizarContador();
     };
 
-    if (data.tipo === 'imagen'){
+    if (data.tipo === 'imagen' || data.tipo === 'concepto'){
       // Primero se lee la proporción de la imagen para que la ventana calce exacto
       const pre = new Image();
       pre.onload = pre.onerror = () => {
