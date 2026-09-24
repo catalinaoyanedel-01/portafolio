@@ -35,6 +35,12 @@
     font-style:italic;
   }
   @font-face{
+    font-family:'PP Lettra Mono';
+    src:url('fonts/PPLettraMono-Medium.otf') format('opentype');
+    font-weight:500;
+    font-style:normal;
+  }
+  @font-face{
     font-family:'PP Writer Regular Text';
     src:url('fonts/PPWriter-RegularText.otf') format('opentype');
     font-weight:400;
@@ -206,6 +212,7 @@
   .filtros{
     display:flex;
     flex-wrap:wrap;
+    justify-content:center;
     gap:10px;
     margin-bottom:40px;
   }
@@ -453,8 +460,9 @@
     scroll-snap-align:start;
   }
 
-  /* -- tipo: concepto (texto e imágenes; el ancho se ajusta a la primera imagen, como en modo imagen) -- */
-  .modal--concepto{
+  /* -- tipo: concepto (texto e imágenes, con scroll vertical) -- */
+  /* Solo los conceptos cortos (una imagen y poco texto) se ajustan al tamaño de esa imagen, como en modo imagen */
+  .modal--concepto.ajustar-imagen{
     width:min(900px, 100%, calc(60vh * var(--ar, 1)));
   }
   .modal--concepto .modal__cuerpo{
@@ -474,9 +482,27 @@
     line-height:1.7;
     margin:0 0 20px;
   }
+  /* Pregunta o frase destacada, más grande y en Lettra Mono regular */
+  .modal--concepto .modal__cuerpo p.texto-destacado{
+    font-family:'PP Lettra Mono', monospace;
+    font-weight:500;
+    font-style:normal;
+    font-size:22px;
+    line-height:1.4;
+  }
+  /* Créditos / ficha técnica, chico e itálico */
+  .modal--concepto .modal__cuerpo p.texto-firma{
+    font-family:'PP Lettra Mono', monospace;
+    font-weight:500;
+    font-style:italic;
+    font-size:13px;
+    color:var(--linea);
+    line-height:1.5;
+  }
 
   @media (max-width:600px){
     .modal--galeria .modal__cuerpo img{ height:40vh; }
+    .filtros{ justify-content:flex-start; }
   }
 
   /* ============ CONTACTO ============ */
@@ -618,7 +644,7 @@
   const proyectosData = {
     // ---------- ILUSTRACIÓN ----------
     'composicion-ornamental': {
-      orden: 10,
+      orden: 8,
       categorias: ['ilustracion'],
       nombre: 'composición ornamental',
       anio: 2025,
@@ -628,7 +654,7 @@
       imagenes: ['ilustracion-compisicion.webp']
     },
     'conoce-a-tu-fauna-nativa': {
-      orden: 12,
+      orden: 23,
       categorias: ['ilustracion', 'diseno-grafico'],
       nombre: 'fauna nativa: gato de geoffroy',
       anio: 2025,
@@ -638,7 +664,7 @@
       imagenes: ['ilustracion-conoceatufaunanativa.webp']
     },
     'espirales': {
-      orden: 6,
+      orden: 27,
       categorias: ['ilustracion'],
       nombre: 'soñar espiral',
       anio: 2025,
@@ -668,7 +694,7 @@
       imagenes: ['ilustracion-manos.webp']
     },
     'orquidea-gavilea': {
-      orden: 4,
+      orden: 25,
       categorias: ['ilustracion'],
       nombre: 'orquídea gavilea',
       anio: 2025,
@@ -678,7 +704,7 @@
       imagenes: ['ilustracion-orquidea.webp']
     },
     'pinguino-de-humboldt': {
-      orden: 8,
+      orden: 11,
       categorias: ['ilustracion'],
       nombre: 'pingüino de humboldt',
       anio: 2025,
@@ -688,7 +714,7 @@
       imagenes: ['ilustracion-pinguinodehumboldt.webp']
     },
     'martin-pescador': {
-      orden: 24,
+      orden: 20,
       categorias: ['ilustracion'],
       nombre: 'martín pescador',
       anio: 2025,
@@ -700,7 +726,7 @@
 
     // ---------- FOTOGRAFÍA ----------
     'fotos-donde-el-cerro-abraza-al-mar': {
-      orden: 7,
+      orden: 19,
       categorias: ['fotografia'],
       nombre: 'fotos: donde el cerro abraza al mar',
       anio: 2024,
@@ -720,7 +746,7 @@
       ]
     },
     'teodioteodio-en-caja-acustica': {
-      orden: 13,
+      orden: 6,
       categorias: ['fotografia'],
       nombre: 'teodioteodio en caja acústica',
       anio: 2024,
@@ -738,7 +764,7 @@
       ]
     },
     'salinas-de-pullally': {
-      orden: 21,
+      orden: 24,
       categorias: ['fotografia'],
       nombre: 'salinas de pullally',
       anio: 2024,
@@ -757,7 +783,7 @@
       ]
     },
     'ruido-blanko-edicion-05': {
-      orden: 11,
+      orden: 10,
       categorias: ['fotografia'],
       nombre: 'ruidoblanko quinta edición',
       anio: 2026,
@@ -774,7 +800,7 @@
       ]
     },
     'quebrada-de-macul': {
-      orden: 5,
+      orden: 26,
       categorias: ['fotografia'],
       nombre: 'quebrada de macul',
       anio: 2025,
@@ -791,7 +817,7 @@
       ]
     },
     'maestro-terror': {
-      orden: 9,
+      orden: 12,
       categorias: ['fotografia'],
       nombre: 'sesión maestro terror',
       anio: 2025,
@@ -808,7 +834,7 @@
       ]
     },
     'jorts-kira': {
-      orden: 14,
+      orden: 17,
       categorias: ['fotografia'],
       nombre: 'sesión jorts kira',
       anio: 2025,
@@ -824,7 +850,7 @@
       ]
     },
     'fotos-hacer-florecer': {
-      orden: 19,
+      orden: 21,
       categorias: ['fotografia'],
       nombre: 'fotos: hacer florecer',
       anio: 2024,
@@ -841,7 +867,7 @@
       ]
     },
     'perriot-en-santiago': {
-      orden: 17,
+      orden: 28,
       categorias: ['fotografia'],
       nombre: 'perriot en santiago',
       anio: 2024,
@@ -854,7 +880,7 @@
       ]
     },
     'experimentaciones-01': {
-      orden: 23,
+      orden: 29,
       categorias: ['fotografia'],
       nombre: 'experimentaciones 01',
       anio: 2024,
@@ -868,7 +894,7 @@
       ]
     },
     'experimentaciones-02': {
-      orden: 25,
+      orden: 15,
       categorias: ['fotografia', 'diseno-grafico'],
       nombre: 'experimentaciones 02',
       anio: 2024,
@@ -883,7 +909,7 @@
     },
 
     'jardin-de-calas': {
-      orden: 22,
+      orden: 14,
       categorias: ['ilustracion'],
       nombre: 'jardín de calas',
       anio: 2026,
@@ -893,7 +919,7 @@
       imagenes: ['ilustracion-calas.webp']
     },
     'transmutacion': {
-      orden: 20,
+      orden: 5,
       categorias: ['ilustracion'],
       nombre: 'transmutación',
       anio: 2026,
@@ -946,12 +972,13 @@
       anio: 2026,
       portada: 'diseno-concurso.webp',
       tipo: 'concepto',
+      ajustarAImagen: true,
       titulo: 'concurso afiches ladera sur',
       imagenes: ['diseno-concurso.webp'],
       texto: ['realización de afiche para el concurso de afiches de ladera sur 2026 durante mi práctica profesional.']
     },
     'title-card': {
-      orden: 15,
+      orden: 9,
       categorias: ['diseno-grafico'],
       nombre: 'title card ruido blanko',
       anio: 2025,
@@ -959,6 +986,108 @@
       tipo: 'imagen',
       titulo: 'title card ruido blanko',
       imagenes: ['diseno-titlecard.gif']
+    },
+
+    // ---------- INTERACCIÓN DIGITAL ----------
+    'naturalezas-interconectadas': {
+      orden: 4,
+      categorias: ['interaccion-digital'],
+      nombre: 'naturalezas interconectadas',
+      anio: 2026,
+      portada: 'interaccion-naturalezas1-portada.gif',
+      tipo: 'concepto',
+      titulo: 'naturalezas interconectadas',
+      imagenes: [
+        'interaccion-naturalezas1-01.gif',
+        'interaccion-naturalezas1-02.webp',
+        'interaccion-naturalezas1-03.gif',
+        'interaccion-naturalezas1-04.webp'
+      ],
+      bloques: [
+        { imagen: 'interaccion-naturalezas1-01.gif' },
+        { texto: 'Este proyecto es un sintetizador modular que combina la generación de sonido analógico con una experiencia interactiva y visual. El concepto explora la simbiótica relación entre los seres humanos y los circuitos electrónicos.' },
+        { imagen: 'interaccion-naturalezas1-02.webp' },
+        { texto: 'Se realizó una ilustración con la base del esquemático y se rodeó de ramas, flores y distintas formas de vida, algunas reales y otras abstractas. Estas formas se entrelazan con el circuito y hay espirales que surgen de los chips, indicando que es lo que le da vida a toda esta red. Esta idea surgió de la similitud de los cables con las raíces, tallos y ramas, como principal inspiración, y le dio vida al nombre del proyecto "naturalezas interconectadas".' },
+        { texto: 'Este nombre nos permite interpretar que finalmente, somos distintos tipos de naturalezas interactuando las unas con las otras. Ya seamos nosotros, seres humanos, a través de las perillas con este sintetizador o de esta idea ficticia, donde el circuito es uno con lo natural en la ilustración. Finalmente, estamos todos conectados a tierra.' },
+        { imagen: 'interaccion-naturalezas1-03.gif' },
+        { imagen: 'interaccion-naturalezas1-04.webp' },
+        { texto: 'proyecto colaborativo con Antonella Aguilar y Yaira Ruiz.', estilo: 'firma' }
+      ]
+    },
+    'la-emocion': {
+      orden: 7,
+      categorias: ['interaccion-digital'],
+      nombre: 'la emoción',
+      anio: 2025,
+      portada: 'interaccion-emocion-01.webp',
+      tipo: 'concepto',
+      titulo: 'la emoción: de lo individual a lo colectivo',
+      imagenes: [
+        'interaccion-emocion-01.webp',
+        'interaccion-emocion-02.webp',
+        'interaccion-emocion-03.webp'
+      ],
+      bloques: [
+        { imagen: 'interaccion-emocion-01.webp' },
+        { texto: '¿Qué tendencias emocionales se pueden concluir al analizar expresiones individuales?', estilo: 'destacado' },
+        { texto: 'El proyecto consta de una instalación interactiva diseñada para el evento Diseño Abierto en la Universidad Diego Portales, en la que la emoción individual pasa a formar parte de una representación colectiva. A través de un sistema de reconocimiento facial, se analizan los rostros de los asistentes para capturar una imagen honesta de su sentir. Los datos afectivos se acumulan en tiempo real, teniendo como resultado una visualización que representa el estado emocional colectivo.' },
+        { texto: 'Montaje:' },
+        { imagen: 'interaccion-emocion-02.webp' },
+        { imagen: 'interaccion-emocion-03.webp' },
+        { texto: 'proyecto colaborativo con Marcela Zúñiga e Izhak Villegas / realizado con los softwares Touchdesigner y P5.js', estilo: 'firma' }
+      ]
+    },
+    'diseno-placas': {
+      orden: 13,
+      categorias: ['interaccion-digital'],
+      nombre: 'diseño para placas pcb',
+      anio: 2026,
+      portada: 'interaccion-pcb-01portada.webp',
+      tipo: 'concepto',
+      titulo: 'diseño para placas pcb',
+      imagenes: [
+        'interaccion-pcb-01portada.webp',
+        'interaccion-pcb-01.webp',
+        'interaccion-pcb-02.webp',
+        'interaccion-pcb-03.webp',
+        'interaccion-pcb-04.webp'
+      ],
+      bloques: [
+        { texto: 'realización de ilustraciones y texto vectoriales para aplicar en serigrafía en placas pcb de un sintetizador modular.' },
+        { imagen: 'interaccion-pcb-01portada.webp' },
+        { imagen: 'interaccion-pcb-01.webp' },
+        { imagen: 'interaccion-pcb-02.webp' },
+        { imagen: 'interaccion-pcb-03.webp' },
+        { imagen: 'interaccion-pcb-04.webp' }
+      ]
+    },
+    'pieza-final': {
+      orden: 22,
+      categorias: ['interaccion-digital'],
+      nombre: 'pieza final',
+      anio: 2026,
+      portada: 'interaccion-piezafinal-portada.webp',
+      tipo: 'concepto',
+      titulo: 'naturalezas interconectadas: pieza final',
+      imagenes: [
+        'interaccion-piezafinal-01.webp',
+        'interaccion-piezafinal-02.webp',
+        'interaccion-piezafinal-03.webp',
+        'interaccion-piezafinal-04.webp',
+        'interaccion-piezafinal-05.webp'
+      ],
+      bloques: [
+        { texto: 'Este proyecto es un sintetizador modular realizado a partir de placas electrónicas. La inspiración comienza desde el sonido que se produce a partir de uno de nuestros osciladores, el cual era parecido al del chirihue, ave nativa chilena y teniendo como antecedente el proyecto anterior "Naturalezas Interconectadas", proponiendo que distintos tipos de naturalezas interactúan las unas con las otras.' },
+        { texto: 'Nuestra conceptualización surge en base a las teorías de Donna Haraway. La autora propone el concepto de cyborg, planteando la interconexión entre diversos componentes y entornos —incluso componentes artificiales y tecnológicos—, como relaciones extensivas en el constructo de lo vivo. En sus palabras, "un cyborg es un organismo cibernético, un híbrido de máquina y organismo, una criatura de realidad social y también de ficción."' },
+        { texto: 'Desde estas definiciones, entendemos que los componentes artificiales y tecnológicos pueden ser una parte más del cuerpo, una extensión del organismo y de lo vivo, desafiando los límites establecidos y volviéndolos más difusos.' },
+        { texto: 'Así, a través del concepto de unión, utilizamos diversos elementos que se retroalimentan constantemente:' },
+        { imagen: 'interaccion-piezafinal-01.webp' },
+        { texto: 'Registro fotográfico:' },
+        { imagen: 'interaccion-piezafinal-02.webp' },
+        { imagen: 'interaccion-piezafinal-03.webp' },
+        { imagen: 'interaccion-piezafinal-04.webp' },
+        { imagen: 'interaccion-piezafinal-05.webp' }
+      ]
     }
   };
 
@@ -1068,7 +1197,7 @@
     if (!data) return;
     if (!Array.isArray(data.imagenes)) data.imagenes = [data.imagenes];   // por si se escribe sin corchetes
 
-    modal.className = 'modal modal--' + data.tipo;
+    modal.className = 'modal modal--' + data.tipo + (data.ajustarAImagen ? ' ajustar-imagen' : '');
     modal.style.removeProperty('--ar');
     modalTitulo.textContent = data.titulo;
     modalFlechaIzq.hidden = true;
@@ -1086,14 +1215,25 @@
     }
 
     if (data.tipo === 'concepto'){
-      const textos = data.texto || [];
-      const bloques = [];
-      const maxLen = Math.max(data.imagenes.length, textos.length);
-      for (let i = 0; i < maxLen; i++){
-        if (data.imagenes[i]) bloques.push(`<img src="${ruta(data.imagenes[i])}" alt="">`);
-        if (textos[i]) bloques.push(`<p>${textos[i]}</p>`);
+      let piezas;
+      if (data.bloques){
+        // Formato flexible: cada bloque es una imagen o un párrafo (con estilo opcional: destacado / firma)
+        piezas = data.bloques.map(b =>
+          b.imagen
+            ? `<img src="${ruta(b.imagen)}" alt="">`
+            : `<p${b.estilo ? ` class="texto-${b.estilo}"` : ''}>${b.texto}</p>`
+        );
+      } else {
+        // Formato simple: alterna imagen[i] con texto[i]
+        const textos = data.texto || [];
+        piezas = [];
+        const maxLen = Math.max(data.imagenes.length, textos.length);
+        for (let i = 0; i < maxLen; i++){
+          if (data.imagenes[i]) piezas.push(`<img src="${ruta(data.imagenes[i])}" alt="">`);
+          if (textos[i]) piezas.push(`<p>${textos[i]}</p>`);
+        }
       }
-      html += `<div class="modal__cuerpo">${bloques.join('')}</div>`;
+      html += `<div class="modal__cuerpo">${piezas.join('')}</div>`;
     }
 
     const mostrar = () => {
@@ -1109,7 +1249,7 @@
       actualizarContador();
     };
 
-    if (data.tipo === 'imagen' || data.tipo === 'concepto'){
+    if (data.tipo === 'imagen' || (data.tipo === 'concepto' && data.ajustarAImagen)){
       // Primero se lee la proporción de la imagen para que la ventana calce exacto
       const pre = new Image();
       pre.onload = pre.onerror = () => {
