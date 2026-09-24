@@ -288,6 +288,13 @@
     line-height:1.3;
     pointer-events:none;
     opacity:1;
+    transition:background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .proyecto:hover .proyecto__mas,
+  .proyecto:focus-visible .proyecto__mas{
+    background:var(--azul);
+    color:var(--blanco);
+    transform:scale(1.06);
   }
 
   .proyecto__info{
@@ -644,7 +651,7 @@
   const proyectosData = {
     // ---------- ILUSTRACIÓN ----------
     'composicion-ornamental': {
-      orden: 8,
+      orden: 25,
       categorias: ['ilustracion'],
       nombre: 'composición ornamental',
       anio: 2025,
@@ -654,7 +661,7 @@
       imagenes: ['ilustracion-compisicion.webp']
     },
     'conoce-a-tu-fauna-nativa': {
-      orden: 23,
+      orden: 10,
       categorias: ['ilustracion', 'diseno-grafico'],
       nombre: 'fauna nativa: gato de geoffroy',
       anio: 2025,
@@ -664,7 +671,7 @@
       imagenes: ['ilustracion-conoceatufaunanativa.webp']
     },
     'espirales': {
-      orden: 27,
+      orden: 15,
       categorias: ['ilustracion'],
       nombre: 'soñar espiral',
       anio: 2025,
@@ -674,7 +681,7 @@
       imagenes: ['ilustracion-espirales.webp']
     },
     'portal-floral': {
-      orden: 18,
+      orden: 13,
       categorias: ['ilustracion'],
       nombre: 'portal floral',
       anio: 2025,
@@ -684,7 +691,7 @@
       imagenes: ['ilustracion-flor.webp']
     },
     'hazme-brillar': {
-      orden: 16,
+      orden: 27,
       categorias: ['ilustracion'],
       nombre: 'resplandor',
       anio: 2025,
@@ -694,7 +701,7 @@
       imagenes: ['ilustracion-manos.webp']
     },
     'orquidea-gavilea': {
-      orden: 25,
+      orden: 7,
       categorias: ['ilustracion'],
       nombre: 'orquídea gavilea',
       anio: 2025,
@@ -704,7 +711,7 @@
       imagenes: ['ilustracion-orquidea.webp']
     },
     'pinguino-de-humboldt': {
-      orden: 11,
+      orden: 17,
       categorias: ['ilustracion'],
       nombre: 'pingüino de humboldt',
       anio: 2025,
@@ -714,7 +721,7 @@
       imagenes: ['ilustracion-pinguinodehumboldt.webp']
     },
     'martin-pescador': {
-      orden: 20,
+      orden: 21,
       categorias: ['ilustracion'],
       nombre: 'martín pescador',
       anio: 2025,
@@ -726,7 +733,7 @@
 
     // ---------- FOTOGRAFÍA ----------
     'fotos-donde-el-cerro-abraza-al-mar': {
-      orden: 19,
+      orden: 28,
       categorias: ['fotografia'],
       nombre: 'fotos: donde el cerro abraza al mar',
       anio: 2024,
@@ -746,7 +753,7 @@
       ]
     },
     'teodioteodio-en-caja-acustica': {
-      orden: 6,
+      orden: 20,
       categorias: ['fotografia'],
       nombre: 'teodioteodio en caja acústica',
       anio: 2024,
@@ -764,7 +771,7 @@
       ]
     },
     'salinas-de-pullally': {
-      orden: 24,
+      orden: 5,
       categorias: ['fotografia'],
       nombre: 'salinas de pullally',
       anio: 2024,
@@ -783,7 +790,7 @@
       ]
     },
     'ruido-blanko-edicion-05': {
-      orden: 10,
+      orden: 18,
       categorias: ['fotografia'],
       nombre: 'ruidoblanko quinta edición',
       anio: 2026,
@@ -800,7 +807,7 @@
       ]
     },
     'quebrada-de-macul': {
-      orden: 26,
+      orden: 31,
       categorias: ['fotografia'],
       nombre: 'quebrada de macul',
       anio: 2025,
@@ -817,7 +824,7 @@
       ]
     },
     'maestro-terror': {
-      orden: 12,
+      orden: 8,
       categorias: ['fotografia'],
       nombre: 'sesión maestro terror',
       anio: 2025,
@@ -834,7 +841,7 @@
       ]
     },
     'jorts-kira': {
-      orden: 17,
+      orden: 16,
       categorias: ['fotografia'],
       nombre: 'sesión jorts kira',
       anio: 2025,
@@ -850,7 +857,7 @@
       ]
     },
     'fotos-hacer-florecer': {
-      orden: 21,
+      orden: 22,
       categorias: ['fotografia'],
       nombre: 'fotos: hacer florecer',
       anio: 2024,
@@ -867,7 +874,7 @@
       ]
     },
     'perriot-en-santiago': {
-      orden: 28,
+      orden: 24,
       categorias: ['fotografia'],
       nombre: 'perriot en santiago',
       anio: 2024,
@@ -880,7 +887,7 @@
       ]
     },
     'experimentaciones-01': {
-      orden: 29,
+      orden: 30,
       categorias: ['fotografia'],
       nombre: 'experimentaciones 01',
       anio: 2024,
@@ -894,7 +901,7 @@
       ]
     },
     'experimentaciones-02': {
-      orden: 15,
+      orden: 11,
       categorias: ['fotografia', 'diseno-grafico'],
       nombre: 'experimentaciones 02',
       anio: 2024,
@@ -909,7 +916,7 @@
     },
 
     'jardin-de-calas': {
-      orden: 14,
+      orden: 19,
       categorias: ['ilustracion'],
       nombre: 'jardín de calas',
       anio: 2026,
@@ -919,7 +926,7 @@
       imagenes: ['ilustracion-calas.webp']
     },
     'transmutacion': {
-      orden: 5,
+      orden: 29,
       categorias: ['ilustracion'],
       nombre: 'transmutación',
       anio: 2026,
@@ -978,7 +985,7 @@
       texto: ['realización de afiche para el concurso de afiches de ladera sur 2026 durante mi práctica profesional.']
     },
     'title-card': {
-      orden: 9,
+      orden: 14,
       categorias: ['diseno-grafico'],
       nombre: 'title card ruido blanko',
       anio: 2025,
@@ -1015,7 +1022,7 @@
       ]
     },
     'diseno-placas': {
-      orden: 13,
+      orden: 6,
       categorias: ['interaccion-digital'],
       nombre: 'diseño para placas pcb',
       anio: 2026,
@@ -1039,7 +1046,7 @@
       ]
     },
     'pieza-final': {
-      orden: 22,
+      orden: 23,
       categorias: ['interaccion-digital'],
       nombre: 'pieza final',
       anio: 2026,
@@ -1065,6 +1072,60 @@
         { imagen: 'interaccion-piezafinal-04.webp' },
         { imagen: 'interaccion-piezafinal-05.webp' },
         { texto: 'proyecto colaborativo con Antonella Aguilar, Santiago Cifuentes, Paula Fuentes, Kristel Ladrón de Guevara y Yaira Ruiz.', estilo: 'firma' }
+      ]
+    },
+
+    // ---------- DISEÑO GRÁFICO (fanzines) ----------
+    'hacer-florecer': {
+      orden: 26,
+      categorias: ['diseno-grafico'],
+      nombre: 'hacer florecer',
+      anio: 2024,
+      portada: 'diseno-hacerflorecer-01.webp',
+      tipo: 'galeria',
+      titulo: 'hacer florecer',
+      imagenes: [
+        'diseno-hacerflorecer-01.webp',
+        'diseno-hacerflorecer-02.webp',
+        'diseno-hacerflorecer-03.webp',
+        'diseno-hacerflorecer-04.webp',
+        'diseno-hacerflorecer-05.webp'
+      ]
+    },
+    'fanzine-valparaiso': {
+      orden: 12,
+      categorias: ['diseno-grafico'],
+      nombre: 'fanzine: donde el cerro abraza al mar',
+      anio: 2024,
+      portada: 'diseno-valparaiso-01.webp',
+      tipo: 'galeria',
+      titulo: 'fanzine: donde el cerro abraza al mar',
+      imagenes: [
+        'diseno-valparaiso-01.webp',
+        'diseno-valparaiso-02.webp',
+        'diseno-valparaiso-03.webp',
+        'diseno-valparaiso-04.webp',
+        'diseno-valparaiso-05.webp',
+        'diseno-valparaiso-06.webp',
+        'diseno-valparaiso-07.webp',
+        'diseno-valparaiso-08.webp',
+        'diseno-valparaiso-09.webp'
+      ]
+    },
+    'fanzine-cafe-analogo': {
+      orden: 9,
+      categorias: ['diseno-grafico'],
+      nombre: 'fanzine: café análogo valpo',
+      anio: 2024,
+      portada: 'diseno-cafeanalogo-01.webp',
+      tipo: 'galeria',
+      titulo: 'fanzine: café análogo valpo',
+      imagenes: [
+        'diseno-cafeanalogo-01.webp',
+        'diseno-cafeanalogo-02.webp',
+        'diseno-cafeanalogo-03.webp',
+        'diseno-cafeanalogo-04.webp',
+        'diseno-cafeanalogo-05.webp'
       ]
     }
   };
